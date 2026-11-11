@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" }
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -15,7 +18,9 @@
     "storybook": "storybook dev -p 6006",
     "test:a11y": "vitest run --project=storybook"
   },
-  "peerDependencies": { "react": "^19.0.0" },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.60.0",
     "@storybook/addon-a11y": "^10.6.0",
@@ -27,6 +32,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "storybook": "^10.6.0",
+    "typescript": "~6.0.3",
     "vite": "^8.0.0",
     "vitest": "^5.1.0"
   }

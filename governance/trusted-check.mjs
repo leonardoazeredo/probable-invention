@@ -88,7 +88,7 @@ const run = (cwd, cmd, args) => {
   try {
     return { ok: true, out: execFileSync(cmd, args, { cwd, encoding: 'utf8', stdio: 'pipe' }) };
   } catch (e) {
-    return { ok: false, out: `${e.stdout ?? ''}${e.stderr ?? ''}` };
+    return { ok: false, out: `${e.stdout ?? ''}${e.stderr ?? ''}` || String(e.message) };
   }
 };
 const bin = (name, pkg = '.') => join(TRUSTED, pkg, 'node_modules/.bin', name);
