@@ -46,3 +46,5 @@ pnpm storybook
    Only then reclassify controls from *instrumented* to *preventive*.
 
 Agents: read [AGENTS.md](AGENTS.md).
+
+Drill 1 canary.
