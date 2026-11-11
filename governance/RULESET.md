@@ -19,7 +19,7 @@ What it sets on the default branch:
 | Dismiss stale approvals on push | Approve-then-push can't carry an old approval forward |
 | Require approval of the most recent push | Whoever pushed last can't be the only approver |
 | Required checks `governance/trusted` and `build-and-test`, pinned to GitHub Actions (integration 15368) | A third-party app can't post a green status under those names |
-| No bypass actors | Nobody is exempt, including admins acting through the UI |
+| One bypass: repository admins, pull-request merges only | On a single-maintainer repo the only code owner can't approve their own PR. The admin may merge past the rules through a PR (logged), never by direct push. This makes the admin path *tamper-evident*, not preventive. The agent isn't an admin, so it stays fully blocked |
 | Block deletion and force-push | History can't be rewritten under the gates |
 
 `governance/trusted` only runs once `.github/workflows/governance-trusted.yml`
@@ -43,9 +43,9 @@ The recommended setup is a separate bot account or GitHub App with **write**
 
 | Field | Value |
 | --- | --- |
-| Agent credential | _not yet decided_ |
-| Permission level | _ |
-| Signed off by / date | _ |
+| Agent credential | GitHub App `probable-invention-agent` (App ID 5717943, installation 181008650), installed on this repository only |
+| Permission level | Contents: read/write, Pull requests: read/write, Metadata: read. No Workflows, Administration, Actions or Secrets access |
+| Signed off by / date | Noper (leonardoazeredo), 2026-11-11 |
 
 ## Plan limits
 
