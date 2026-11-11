@@ -1,0 +1,18 @@
+# Governance surface. Only effective when the branch ruleset requires
+# code-owner review (see governance/RULESET.md). Replace the owner handles
+# with a team once the design-system and platform owners are named.
+
+# Enforcement machinery: platform owner
+/.github/                          @leonardoazeredo
+/governance/                       @leonardoazeredo
+/eslint.config.js                  @leonardoazeredo
+/package.json                      @leonardoazeredo
+/pnpm-lock.yaml                    @leonardoazeredo
+/pnpm-workspace.yaml               @leonardoazeredo
+**/package.json                    @leonardoazeredo
+**/api-extractor.json              @leonardoazeredo
+**/.storybook/                     @leonardoazeredo
+
+# Shared vocabulary: design-system owner
+/packages/design-system/etc/*.api.md   @leonardoazeredo
+/packages/design-system/src/           @leonardoazeredo
