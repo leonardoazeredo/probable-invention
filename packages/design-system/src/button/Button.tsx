@@ -17,10 +17,12 @@ export function Button({ variant = 'primary', type = 'button', style, ...rest }:
       style={{
         background: primary ? tokens.color.actionPrimary : tokens.color.actionSecondary,
         color: primary ? tokens.color.onAction : tokens.color.onSecondary,
-        padding: `${tokens.space.sm} ${tokens.space.lg}`,
+        padding: tokens.space.md,
         borderRadius: tokens.radius.md,
         border: 'none',
+        fontFamily: tokens.font.family,
         fontSize: tokens.font.body,
+        lineHeight: 1,
         cursor: 'pointer',
         ...style,
       }}

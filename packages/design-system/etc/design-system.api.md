@@ -28,24 +28,35 @@ export type Tokens = typeof tokens;
 // @public
 export const tokens: {
     readonly color: {
-        readonly actionPrimary: "#1d4ed8";
-        readonly actionPrimaryHover: "#1e40af";
-        readonly onAction: "#ffffff";
-        readonly actionSecondary: "#e5e7eb";
-        readonly onSecondary: "#111827";
-        readonly focusRing: "#f59e0b";
+        readonly actionPrimary: "#2c2c2c";
+        readonly actionPrimaryHover: "#1e1e1e";
+        readonly onAction: "#f5f5f5";
+        readonly actionSecondary: "#e3e3e3";
+        readonly onSecondary: "#303030";
+        readonly focusRing: "#006aff";
+        readonly surface: "#ffffff";
+        readonly textDefault: "#1e1e1e";
+        readonly textSecondary: "#757575";
     };
     readonly space: {
         readonly xs: "4px";
         readonly sm: "8px";
         readonly md: "12px";
         readonly lg: "16px";
+        readonly xl: "24px";
+        readonly xxl: "32px";
+        readonly section: "64px";
     };
     readonly radius: {
-        readonly md: "6px";
+        readonly md: "8px";
     };
     readonly font: {
+        readonly family: "Inter, sans-serif";
         readonly body: "16px";
+        readonly subtitle: "32px";
+        readonly titleHero: "72px";
+        readonly weightRegular: 400;
+        readonly weightBold: 700;
     };
 };
 
