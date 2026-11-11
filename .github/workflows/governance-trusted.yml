@@ -1,0 +1,61 @@
+# Sole producer of the required check "governance/trusted".
+#
+# pull_request_target runs this file and the governance scripts from the BASE
+# branch, so a PR cannot change the workflow or scripts that judge it. PR code is
+# checked out as data and never executed: no install scripts, no PR config, no
+# PR tests. Token is read-only and no secrets are exposed.
+name: governance-trusted
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: governance-trusted-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  trusted:
+    name: governance/trusted
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out base branch (trusted tooling)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: trusted
+          persist-credentials: false
+
+      - name: Check out PR head (data only)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          path: head
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: trusted/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install base-branch dependencies
+        working-directory: trusted
+        run: pnpm install --frozen-lockfile
+
+      - name: Fetch base into PR clone
+        working-directory: head
+        run: git fetch --no-tags origin ${{ github.event.pull_request.base.sha }}
+
+      - name: Judge PR with base-branch rules
+        run: >
+          node trusted/governance/trusted-check.mjs
+          --trusted trusted
+          --head head
+          --base ${{ github.event.pull_request.base.sha }}

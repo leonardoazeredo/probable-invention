@@ -1,0 +1,33 @@
+# Ordinary CI: runs the PR's own code. Its results are useful but NOT the
+# governance gate, because a PR can edit this file.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm api:check
+      - run: pnpm test:governance
+      - name: Storybook accessibility tests (axe, a11y.test = error)
+        run: |
+          pnpm --filter @pi/design-system exec playwright install --with-deps chromium
+          pnpm test:a11y

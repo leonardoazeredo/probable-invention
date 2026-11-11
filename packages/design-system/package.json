@@ -1,0 +1,33 @@
+{
+  "name": "@pi/design-system",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "api:check": "pnpm build && api-extractor run",
+    "api:update": "pnpm build && api-extractor run --local",
+    "storybook": "storybook dev -p 6006",
+    "test:a11y": "vitest run --project=storybook"
+  },
+  "peerDependencies": { "react": "^19.0.0" },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.60.0",
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-vitest": "^10.6.0",
+    "@storybook/react-vite": "^10.6.0",
+    "@types/react": "^19.3.0",
+    "@vitest/browser-playwright": "^5.1.0",
+    "playwright": "*",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "storybook": "^10.6.0",
+    "vite": "^8.0.0",
+    "vitest": "^5.1.0"
+  }
+}

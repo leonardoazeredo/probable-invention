@@ -1,0 +1,26 @@
+{
+  "name": "probable-invention",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint . --max-warnings 0",
+    "api:check": "pnpm --filter @pi/design-system api:check",
+    "api:update": "pnpm --filter @pi/design-system api:update",
+    "debt": "node governance/scan-debt.mjs",
+    "ratchet": "node governance/ratchet.mjs",
+    "test:governance": "node --test --test-concurrency=4 \"governance/tests/*.test.mjs\"",
+    "storybook": "pnpm --filter @pi/design-system storybook",
+    "test:a11y": "pnpm --filter @pi/design-system test:a11y"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.6.0",
+    "globals": "^17.0.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.60.0"
+  }
+}
