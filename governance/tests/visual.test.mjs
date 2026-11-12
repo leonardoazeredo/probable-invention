@@ -226,7 +226,7 @@ test('PASS: PR that touches the screen without changing how it looks', () => {
 
 test('BLOCK: PR that changes the screen layout', () => {
   expectBlock(
-    scenario('layout', (d) => edit(d, HERO, (s) => s.replace('gap: tokens.space.xl', 'gap: tokens.space.section'))),
+    scenario('layout', (d) => edit(d, HERO, (s) => s.replace('gap: tokens.space.xxl', 'gap: tokens.space.section'))),
     /off the Figma frame/,
   );
 });
@@ -240,7 +240,7 @@ test('BLOCK: PR that changes a token the screen uses', () => {
 
 test('BLOCK: PR that changes a colour without changing the layout', () => {
   expectBlock(
-    scenario('colour', (d) => edit(d, TOKENS, (s) => s.replace("surface: '#ffffff'", "surface: '#f0f0f0'"))),
+    scenario('colour', (d) => edit(d, TOKENS, (s) => s.replace("surfaceSecondary: '#f5f5f5'", "surfaceSecondary: '#e8e8e8'"))),
     /drifted from the Figma frame/,
   );
 });
@@ -248,7 +248,7 @@ test('BLOCK: PR that changes a colour without changing the layout', () => {
 test("BLOCK: PR that replaces the reference with its own render is still judged by the base's reference", () => {
   expectBlock(
     scenario('self-baseline', (d) => {
-      edit(d, HERO, (s) => s.replace('gap: tokens.space.xl', 'gap: tokens.space.section'));
+      edit(d, HERO, (s) => s.replace('gap: tokens.space.xxl', 'gap: tokens.space.section'));
       mkdirSync(join(d, 'governance/visual/baselines'), { recursive: true });
       writeFileSync(join(d, 'governance/visual/baselines/test-hero.png'), PNG.sync.write(solid(1, 1, [0, 0, 0])));
       writeFileSync(join(d, 'governance/visual/scenes.json'), '{"scenes":[]}');
@@ -326,6 +326,19 @@ test('structure: a matching render has no findings', () => {
   assert.equal(r.checked, 5);
 });
 
+test('structure: a frame holding only text is compared like text (no width or left edge)', () => {
+  const frame = figmaFrame();
+  const title = frame.children[0];
+  frame.children[0] = { id: '1:6', name: 'Text', type: 'INSTANCE', absoluteBoundingBox: { ...title.absoluteBoundingBox }, children: [title] };
+  const m = matching();
+  m['.text'] = el(150, 40, 100, 40); // 10px wider than Figma: the rasteriser's text width
+  const map = [...MAP.slice(0, 1), { figma: 'Text', selector: '.text' }, { figma: 'Text/Title', selector: 'h1' }, ...MAP.slice(2)];
+  assert.deepEqual(compareStructure(trimFigmaNode(frame), m, map).findings.map((f) => f.message), []);
+  m['.text'].box.y = 52;
+  m.h1.box.y = 52;
+  assert.ok(compareStructure(trimFigmaNode(frame), m, map).findings.some((f) => f.message === 'Text: top (within Section) 52px, Figma 40px'));
+});
+
 test('structure: names each wrong property with both values', () => {
   const m = matching();
   m[':scope'].backgroundColor = 'rgb(255, 255, 255)';
@@ -363,14 +376,14 @@ test('structure: parses computed colours', () => {
 
 test('BLOCK (structural): PR that changes a font weight names the layer and both values', () => {
   expectBlock(
-    scenario('weight', (d) => edit(d, HERO, (s) => s.replace('fontSize: tokens.font.subtitle, fontWeight: tokens.font.weightRegular', 'fontSize: tokens.font.subtitle, fontWeight: tokens.font.weightBold'))),
+    scenario('weight', (d) => edit(d, HERO, (s) => s.replace('fontWeight: tokens.font.weightRegular', 'fontWeight: tokens.font.weightBold'))),
     /Subtitle: font weight 700, Figma 400/,
   );
 });
 
 test('BLOCK (structural): PR that changes a gap names the gap and both sizes', () => {
   expectBlock(
-    scenario('gap', (d) => edit(d, HERO, (s) => s.replace('gap: tokens.space.md', 'gap: tokens.space.sm'))),
+    scenario('gap', (d) => edit(d, HERO, (s) => s.replace('gap: tokens.space.lg', 'gap: tokens.space.md'))),
     /Buttons: gap between Secondary button and Primary button \d+px, Figma \d+px/,
   );
 });
@@ -392,7 +405,8 @@ test('tokens: a finding names the Figma variable and the token to use, or says n
   const hint = makeVariableHint(variables, parseTokens(readFileSync(join(REPO, 'packages/design-system/src/tokens/tokens.ts'), 'utf8')));
   assert.equal(hint('VariableID:3919:36451'), ' → Figma variable Text/Default/Secondary; use tokens.color.textSecondary');
   assert.equal(hint('VariableID:66:10177'), ' → Figma variable Subtitle/Size Base; use tokens.font.subtitle');
-  assert.match(hint('VariableID:3919:36424'), /Background\/Default\/Secondary \(#f5f5f5\); no design-system token maps to it yet/);
+  assert.equal(hint('VariableID:3919:36424'), ' → Figma variable Background/Default/Secondary; use tokens.color.surfaceSecondary');
+  assert.match(hint('VariableID:9:11219'), /Device Width \(1200\); no design-system token maps to it yet/);
   assert.equal(hint('VariableID:0:0'), '');
 
   const snap = trimFigmaNode(figmaFrame());

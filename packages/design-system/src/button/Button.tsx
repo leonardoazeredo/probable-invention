@@ -16,10 +16,12 @@ export function Button({ variant = 'primary', type = 'button', style, ...rest }:
       type={type}
       style={{
         background: primary ? tokens.color.actionPrimary : tokens.color.actionSecondary,
-        color: primary ? tokens.color.onAction : tokens.color.onSecondary,
-        padding: tokens.space.md,
+        color: primary ? tokens.color.onAction : tokens.color.textDefault,
+        // Figma strokes sit inside the frame, so the border eats into the padding
+        // and the button keeps SDS's 40px height.
+        padding: `calc(${tokens.space.md} - ${tokens.stroke.border})`,
         borderRadius: tokens.radius.md,
-        border: 'none',
+        border: `${tokens.stroke.border} solid ${primary ? tokens.color.borderBrand : tokens.color.borderSecondary}`,
         fontFamily: tokens.font.family,
         fontSize: tokens.font.body,
         lineHeight: 1,
