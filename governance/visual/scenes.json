@@ -41,7 +41,7 @@
         "url": "https://www.figma.com/design/MPz5qGH25seQpIonTcHUZU/Simple-Design-System--Community-?node-id=2143-15053"
       },
       "structure": {
-        "mode": "report",
+        "mode": "enforce",
         "map": [
           { "figma": "", "selector": ":scope", "name": "Section" },
           { "figma": "Text Content Title", "selector": "section > div:nth-child(1)", "name": "Text" },

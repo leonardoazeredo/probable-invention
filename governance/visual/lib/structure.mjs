@@ -210,13 +210,18 @@ export function compareStructure(snapshot, measured, map, tolerance = {}, { vari
     const where = anc ? ` (within ${resolved.find((r) => r.node === anc).label})` : '';
 
     const isText = node.type === 'TEXT';
-    const boxTol = isText ? tol.textBox : tol.box;
+    // A frame whose visible children are all text (Figma's "Text Content
+    // Title") is as wide as its widest line, so its width and left edge depend
+    // on the rasteriser just like the text's own.
+    const shown = (node.children ?? []).filter((c) => !c.hidden);
+    const textSized = isText || (shown.length > 0 && shown.every((c) => c.type === 'TEXT'));
+    const boxTol = textSized ? tol.textBox : tol.box;
     // Position and size. Text width depends on the rasteriser, so only its
     // vertical position is compared; its type properties are checked below.
     for (const [k, prop] of [
       ['y', 'top'],
       ['height', 'height'],
-      ...(isText ? [] : [['x', 'left'], ['width', 'width']]),
+      ...(textSized ? [] : [['x', 'left'], ['width', 'width']]),
     ]) {
       if (Math.abs(rel.el[k] - rel.node[k]) > boxTol) {
         // The first child's offset in an auto-layout parent is its padding.

@@ -61,8 +61,9 @@ is caught exactly.
   Button), a node id like `2143:15060`, or `""` for the frame itself
   (selector `:scope`). The map lives on the base branch, so a PR can't remap
   layers to avoid the check.
-- **Compared:** top, height, left and width (±1px; text: top and height only,
-  ±2px, since text width depends on the rasteriser), background, border width
+- **Compared:** top, height, left and width (±1px; text, and frames holding
+  only text, such as SDS's Text Content Title: top and height only, ±2px,
+  since text width depends on the rasteriser), background, border width
   and colour, corner radius, text colour, font family, size and weight, line
   height (±1px), letter spacing, and the gaps between mapped children of
   auto-layout frames. Colours match within 2/255 per channel. Override with
@@ -79,7 +80,8 @@ is caught exactly.
   text), so keep those comments accurate.
 - **Mode:** `"report"` lists mismatches in the summary and report without
   failing; `"enforce"` fails the scene on any mismatch. Start a new scene in
-  `report`, then switch to `enforce` once the map is right.
+  `report`, then switch to `enforce` once the map is right and the screen
+  matches. `hero-actions` is enforced.
 - **Not covered:** elements that aren't mapped. An unexpected extra element is
   still caught by the pixel diff.
 

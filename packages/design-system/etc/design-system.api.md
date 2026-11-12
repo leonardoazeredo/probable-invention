@@ -35,6 +35,9 @@ export const tokens: {
         readonly onSecondary: "#303030";
         readonly focusRing: "#006aff";
         readonly surface: "#ffffff";
+        readonly surfaceSecondary: "#f5f5f5";
+        readonly borderSecondary: "#767676";
+        readonly borderBrand: "#2c2c2c";
         readonly textDefault: "#1e1e1e";
         readonly textSecondary: "#757575";
     };
@@ -46,15 +49,25 @@ export const tokens: {
         readonly xl: "24px";
         readonly xxl: "32px";
         readonly section: "64px";
+        readonly sectionLarge: "160px";
     };
     readonly radius: {
         readonly md: "8px";
+    };
+    readonly stroke: {
+        readonly border: "1px";
+    };
+    readonly layout: {
+        readonly heroActionsWidth: "240px";
     };
     readonly font: {
         readonly family: "Inter, sans-serif";
         readonly body: "16px";
         readonly subtitle: "32px";
         readonly titleHero: "72px";
+        readonly titleHeroLineHeight: 1.2;
+        readonly titleHeroLetterSpacing: "-0.03em";
+        readonly subtitleLineHeight: 1.2;
         readonly weightRegular: 400;
         readonly weightBold: 700;
     };
