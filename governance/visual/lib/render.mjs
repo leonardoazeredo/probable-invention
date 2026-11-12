@@ -12,6 +12,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join, relative, resolve } from 'node:path';
 import { chromium } from 'playwright';
+import { measureInPage } from './structure.mjs';
 
 export async function bundleScene({ trusted, head, scene }) {
   const require = createRequire(join(trusted, 'package.json'));
@@ -78,8 +79,11 @@ export async function launchBrowser() {
   });
 }
 
-/** Returns a PNG buffer of the scene's root element. */
-export async function renderScene({ browser, trusted, scene, code }) {
+/**
+ * Renders the scene. Returns a PNG buffer of its root element and, for the
+ * given selectors, boxes and computed styles (see structure.mjs).
+ */
+export async function renderScene({ browser, trusted, scene, code, selectors = [] }) {
   const context = await browser.newContext({
     viewport: scene.viewport,
     deviceScaleFactor: 1,
@@ -104,7 +108,9 @@ html,body{margin:0;padding:0;background:#fff;}
     await page.evaluate(() => document.fonts.ready);
     const root = page.locator('#root > *').first();
     if (!(await root.count())) throw new Error('scene rendered nothing');
-    return await root.screenshot({ animations: 'disabled', caret: 'hide', scale: 'css' });
+    const png = await root.screenshot({ animations: 'disabled', caret: 'hide', scale: 'css' });
+    const measured = selectors.length ? await page.evaluate(measureInPage, selectors) : {};
+    return { png, measured };
   } finally {
     await context.close();
   }

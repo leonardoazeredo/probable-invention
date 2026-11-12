@@ -1,0 +1,505 @@
+{
+  "$comment": "Trimmed Figma node tree for the structural check, from the Figma REST API. Do not edit by hand; refresh with `pnpm visual:fetch --scene <id> --structure-only`.",
+  "scene": "hero-actions",
+  "nodeId": "2143:15053",
+  "version": "2420769579160087346",
+  "lastModified": "2026-11-12T01:23:10Z",
+  "fetchedAt": "2026-11-12T11:14:00Z",
+  "source": "GET /v1/files/MPz5qGH25seQpIonTcHUZU/nodes?ids=2143:15053 with a read-only token, trimmed with lib/structure.mjs trimFigmaNode. Re-check with `pnpm visual:fetch --scene hero-actions --verify`.",
+  "root": {
+    "id": "2143:15053",
+    "name": "Platform=Desktop",
+    "type": "COMPONENT",
+    "box": {
+      "x": 0,
+      "y": 0,
+      "width": 1200,
+      "height": 524
+    },
+    "layout": {
+      "mode": "VERTICAL",
+      "itemSpacing": 32,
+      "padding": [
+        160,
+        24,
+        160,
+        24
+      ]
+    },
+    "fill": {
+      "hex": "#f5f5f5",
+      "opacity": 1
+    },
+    "variables": {
+      "itemSpacing": "VariableID:346:10902",
+      "paddingLeft": "VariableID:9:11262",
+      "paddingTop": "VariableID:346:10896",
+      "paddingRight": "VariableID:9:11262",
+      "paddingBottom": "VariableID:346:10896",
+      "size": {
+        "x": "VariableID:9:11219"
+      },
+      "fills": [
+        "VariableID:3919:36424"
+      ]
+    },
+    "children": [
+      {
+        "id": "2153:5894",
+        "name": "Text Content Title",
+        "type": "INSTANCE",
+        "box": {
+          "x": 524.5,
+          "y": 160,
+          "width": 151,
+          "height": 132
+        },
+        "layout": {
+          "mode": "VERTICAL",
+          "itemSpacing": 8,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "variables": {
+          "itemSpacing": "VariableID:9:11259"
+        },
+        "children": [
+          {
+            "id": "I2153:5894;2153:7840",
+            "name": "Title",
+            "type": "TEXT",
+            "box": {
+              "x": 524.5,
+              "y": 160,
+              "width": 151,
+              "height": 86
+            },
+            "fill": {
+              "hex": "#1e1e1e",
+              "opacity": 1
+            },
+            "text": {
+              "characters": "Title",
+              "fontFamily": "Inter",
+              "fontSize": 72,
+              "fontWeight": 700,
+              "lineHeight": 86.4,
+              "letterSpacing": -2.16
+            },
+            "variables": {
+              "fills": [
+                "VariableID:3919:36450"
+              ],
+              "fontWeight": [
+                "VariableID:66:10190"
+              ],
+              "fontFamily": [
+                "VariableID:66:10188"
+              ],
+              "fontSize": [
+                "VariableID:66:10189"
+              ]
+            }
+          },
+          {
+            "id": "I2153:5894;2153:7841",
+            "name": "Subtitle",
+            "type": "TEXT",
+            "box": {
+              "x": 524.5,
+              "y": 254,
+              "width": 151,
+              "height": 38
+            },
+            "fill": {
+              "hex": "#757575",
+              "opacity": 1
+            },
+            "text": {
+              "characters": "Subtitle",
+              "fontFamily": "Inter",
+              "fontSize": 32,
+              "fontWeight": 400,
+              "lineHeight": 38.4,
+              "letterSpacing": 0
+            },
+            "variables": {
+              "fills": [
+                "VariableID:3919:36451"
+              ],
+              "fontWeight": [
+                "VariableID:66:10178"
+              ],
+              "fontFamily": [
+                "VariableID:66:10176"
+              ],
+              "fontSize": [
+                "VariableID:66:10177"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "2143:15044",
+        "name": "Button Group",
+        "type": "INSTANCE",
+        "box": {
+          "x": 480,
+          "y": 324,
+          "width": 240,
+          "height": 40
+        },
+        "layout": {
+          "mode": "HORIZONTAL",
+          "itemSpacing": 16,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "variables": {
+          "itemSpacing": "VariableID:9:11261"
+        },
+        "children": [
+          {
+            "id": "I2143:15044;2072:9460",
+            "name": "Button",
+            "type": "INSTANCE",
+            "box": {
+              "x": 480,
+              "y": 324,
+              "width": 112,
+              "height": 40
+            },
+            "layout": {
+              "mode": "HORIZONTAL",
+              "itemSpacing": 8,
+              "padding": [
+                12,
+                12,
+                12,
+                12
+              ]
+            },
+            "fill": {
+              "hex": "#e3e3e3",
+              "opacity": 1
+            },
+            "stroke": {
+              "hex": "#767676",
+              "opacity": 1,
+              "weight": 1
+            },
+            "radius": 8,
+            "variables": {
+              "itemSpacing": "VariableID:9:11259",
+              "paddingLeft": "VariableID:9:11260",
+              "paddingTop": "VariableID:9:11260",
+              "paddingRight": "VariableID:9:11260",
+              "paddingBottom": "VariableID:9:11260",
+              "individualStrokeWeights": {
+                "BORDER_TOP_WEIGHT": "VariableID:197:17450",
+                "BORDER_BOTTOM_WEIGHT": "VariableID:197:17450",
+                "BORDER_LEFT_WEIGHT": "VariableID:197:17450",
+                "BORDER_RIGHT_WEIGHT": "VariableID:197:17450"
+              },
+              "rectangleCornerRadii": {
+                "RECTANGLE_TOP_LEFT_CORNER_RADIUS": "VariableID:9:11275",
+                "RECTANGLE_TOP_RIGHT_CORNER_RADIUS": "VariableID:9:11275",
+                "RECTANGLE_BOTTOM_LEFT_CORNER_RADIUS": "VariableID:9:11275",
+                "RECTANGLE_BOTTOM_RIGHT_CORNER_RADIUS": "VariableID:9:11275"
+              },
+              "fills": [
+                "VariableID:106:12468"
+              ],
+              "strokes": [
+                "VariableID:106:12486"
+              ]
+            },
+            "children": [
+              {
+                "id": "I2143:15044;2072:9460;9762:5084",
+                "name": "Star",
+                "type": "INSTANCE",
+                "box": {
+                  "x": 492,
+                  "y": 336,
+                  "width": 16,
+                  "height": 16
+                },
+                "hidden": true,
+                "children": [
+                  {
+                    "id": "I2143:15044;2072:9460;9762:5084;68:16010",
+                    "name": "Icon",
+                    "type": "VECTOR",
+                    "box": {
+                      "x": 493.33,
+                      "y": 337.33,
+                      "width": 13.33,
+                      "height": 12.68
+                    },
+                    "stroke": {
+                      "hex": "#1e1e1e",
+                      "opacity": 1,
+                      "weight": 1.600000023841858
+                    },
+                    "variables": {
+                      "strokes": [
+                        "VariableID:3919:36482"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "I2143:15044;2072:9460;9762:5085",
+                "name": "Button",
+                "type": "TEXT",
+                "box": {
+                  "x": 510.5,
+                  "y": 336,
+                  "width": 51,
+                  "height": 16
+                },
+                "fill": {
+                  "hex": "#1e1e1e",
+                  "opacity": 1
+                },
+                "text": {
+                  "characters": "Button",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": 400,
+                  "lineHeight": 16,
+                  "letterSpacing": 0
+                },
+                "variables": {
+                  "fills": [
+                    "VariableID:3919:36450"
+                  ],
+                  "fontWeight": [
+                    "VariableID:66:10181"
+                  ],
+                  "fontFamily": [
+                    "VariableID:66:10179"
+                  ],
+                  "fontSize": [
+                    "VariableID:66:10180"
+                  ]
+                }
+              },
+              {
+                "id": "I2143:15044;2072:9460;9762:5086",
+                "name": "X",
+                "type": "INSTANCE",
+                "box": {
+                  "x": 551,
+                  "y": 336,
+                  "width": 16,
+                  "height": 16
+                },
+                "hidden": true,
+                "children": [
+                  {
+                    "id": "I2143:15044;2072:9460;9762:5086;68:16114",
+                    "name": "Icon",
+                    "type": "VECTOR",
+                    "box": {
+                      "x": 555,
+                      "y": 340,
+                      "width": 8,
+                      "height": 8
+                    },
+                    "stroke": {
+                      "hex": "#1e1e1e",
+                      "opacity": 1,
+                      "weight": 1.600000023841858
+                    },
+                    "variables": {
+                      "strokes": [
+                        "VariableID:3919:36482"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "I2143:15044;2072:9461",
+            "name": "Button",
+            "type": "INSTANCE",
+            "box": {
+              "x": 608,
+              "y": 324,
+              "width": 112,
+              "height": 40
+            },
+            "layout": {
+              "mode": "HORIZONTAL",
+              "itemSpacing": 8,
+              "padding": [
+                12,
+                12,
+                12,
+                12
+              ]
+            },
+            "fill": {
+              "hex": "#2c2c2c",
+              "opacity": 1
+            },
+            "stroke": {
+              "hex": "#2c2c2c",
+              "opacity": 1,
+              "weight": 1
+            },
+            "radius": 8,
+            "variables": {
+              "itemSpacing": "VariableID:9:11259",
+              "paddingLeft": "VariableID:9:11260",
+              "paddingTop": "VariableID:9:11260",
+              "paddingRight": "VariableID:9:11260",
+              "paddingBottom": "VariableID:9:11260",
+              "individualStrokeWeights": {
+                "BORDER_TOP_WEIGHT": "VariableID:197:17450",
+                "BORDER_BOTTOM_WEIGHT": "VariableID:197:17450",
+                "BORDER_LEFT_WEIGHT": "VariableID:197:17450",
+                "BORDER_RIGHT_WEIGHT": "VariableID:197:17450"
+              },
+              "rectangleCornerRadii": {
+                "RECTANGLE_TOP_LEFT_CORNER_RADIUS": "VariableID:9:11275",
+                "RECTANGLE_TOP_RIGHT_CORNER_RADIUS": "VariableID:9:11275",
+                "RECTANGLE_BOTTOM_LEFT_CORNER_RADIUS": "VariableID:9:11275",
+                "RECTANGLE_BOTTOM_RIGHT_CORNER_RADIUS": "VariableID:9:11275"
+              },
+              "fills": [
+                "VariableID:3919:36428"
+              ],
+              "strokes": [
+                "VariableID:3919:36516"
+              ]
+            },
+            "children": [
+              {
+                "id": "I2143:15044;2072:9461;4185:3780",
+                "name": "Star",
+                "type": "INSTANCE",
+                "box": {
+                  "x": 620,
+                  "y": 336,
+                  "width": 16,
+                  "height": 16
+                },
+                "hidden": true,
+                "children": [
+                  {
+                    "id": "I2143:15044;2072:9461;4185:3780;68:16010",
+                    "name": "Icon",
+                    "type": "VECTOR",
+                    "box": {
+                      "x": 621.33,
+                      "y": 337.33,
+                      "width": 13.33,
+                      "height": 12.68
+                    },
+                    "stroke": {
+                      "hex": "#f5f5f5",
+                      "opacity": 1,
+                      "weight": 1.600000023841858
+                    },
+                    "variables": {
+                      "strokes": [
+                        "VariableID:3919:36491"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "I2143:15044;2072:9461;4185:3781",
+                "name": "Button",
+                "type": "TEXT",
+                "box": {
+                  "x": 638.5,
+                  "y": 336,
+                  "width": 51,
+                  "height": 16
+                },
+                "fill": {
+                  "hex": "#f5f5f5",
+                  "opacity": 1
+                },
+                "text": {
+                  "characters": "Button",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": 400,
+                  "lineHeight": 16,
+                  "letterSpacing": 0
+                },
+                "variables": {
+                  "fills": [
+                    "VariableID:3919:36459"
+                  ],
+                  "fontWeight": [
+                    "VariableID:66:10181"
+                  ],
+                  "fontFamily": [
+                    "VariableID:66:10179"
+                  ],
+                  "fontSize": [
+                    "VariableID:66:10180"
+                  ]
+                }
+              },
+              {
+                "id": "I2143:15044;2072:9461;4185:3782",
+                "name": "X",
+                "type": "INSTANCE",
+                "box": {
+                  "x": 679,
+                  "y": 336,
+                  "width": 16,
+                  "height": 16
+                },
+                "hidden": true,
+                "children": [
+                  {
+                    "id": "I2143:15044;2072:9461;4185:3782;68:16114",
+                    "name": "Icon",
+                    "type": "VECTOR",
+                    "box": {
+                      "x": 683,
+                      "y": 340,
+                      "width": 8,
+                      "height": 8
+                    },
+                    "stroke": {
+                      "hex": "#f5f5f5",
+                      "opacity": 1,
+                      "weight": 1.600000023841858
+                    },
+                    "variables": {
+                      "strokes": [
+                        "VariableID:3919:36491"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

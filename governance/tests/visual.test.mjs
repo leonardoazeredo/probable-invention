@@ -129,6 +129,45 @@ function clone(name) {
   return dir;
 }
 
+const HERO_MAP = [
+  { figma: '', selector: ':scope', name: 'Section' },
+  { figma: 'Text', selector: 'section > div:nth-child(1)' },
+  { figma: 'Text/Title', selector: 'h1' },
+  { figma: 'Text/Subtitle', selector: 'p' },
+  { figma: 'Buttons', selector: 'section > div:nth-child(2)' },
+  { figma: 'Buttons/Button#1', selector: 'section > div:nth-child(2) > button:nth-child(1)', name: 'Secondary button' },
+  { figma: 'Buttons/Button#2', selector: 'section > div:nth-child(2) > button:nth-child(2)', name: 'Primary button' },
+];
+const LAYOUT = { '': 'VERTICAL', Text: 'VERTICAL', Buttons: 'HORIZONTAL' };
+
+/** Builds a Figma REST-shaped node tree from measured elements (test fixture). */
+function figmaTreeFromRender(measured) {
+  const paint = (css) => {
+    const m = css.match(/[\d.]+/g).map(Number);
+    return (m[3] ?? 1) === 0 ? [] : [{ type: 'SOLID', color: { r: m[0] / 255, g: m[1] / 255, b: m[2] / 255, a: m[3] ?? 1 } }];
+  };
+  const nodes = {};
+  for (const [i, { figma, selector }] of HERO_MAP.entries()) {
+    const e = measured[selector];
+    const text = selector === 'h1' || selector === 'p';
+    nodes[figma] = {
+      id: `9:${i + 1}`,
+      name: (figma.split('/').pop() || 'Hero').replace(/#\d+$/, ''),
+      type: text ? 'TEXT' : 'FRAME',
+      absoluteBoundingBox: e.box,
+      fills: paint(text ? e.color : e.backgroundColor),
+      strokes: e.borderStyle !== 'none' && e.borderWidth > 0 ? paint(e.borderColor) : [],
+      strokeWeight: e.borderWidth,
+      cornerRadius: e.radius,
+      ...(LAYOUT[figma] ? { layoutMode: LAYOUT[figma], itemSpacing: 0 } : {}),
+      ...(text ? { style: { fontFamily: 'Inter', fontSize: e.fontSize, fontWeight: e.fontWeight, lineHeightPx: e.lineHeight ?? undefined, letterSpacing: e.letterSpacing } } : {}),
+      children: [],
+    };
+    if (figma) nodes[figma.split('/').slice(0, -1).join('/')].children.push(nodes[figma]);
+  }
+  return nodes[''];
+}
+
 // Reference = the committed base rendered by the gate itself.
 {
   const base = clone('reference');
@@ -137,7 +176,16 @@ function clone(name) {
   const { code } = await bundleScene({ trusted: TRUSTED, head: base, scene });
   const browser = await launchBrowser();
   try {
-    writeFileSync(join(TRUSTED, 'governance/visual', scene.baseline), await renderScene({ browser, trusted: TRUSTED, scene, code }));
+    const { png, measured } = await renderScene({ browser, trusted: TRUSTED, scene, code, selectors: HERO_MAP.map((m) => m.selector) });
+    writeFileSync(join(TRUSTED, 'governance/visual', scene.baseline), png);
+    // Node snapshot = the base render's own layout, expressed as Figma nodes,
+    // so the structural check is tested independently of the real Figma data.
+    writeFileSync(
+      join(TRUSTED, 'governance/visual', scene.baseline.replace(/\.png$/, '.figma.json')),
+      JSON.stringify({ root: (await import('../visual/lib/structure.mjs')).trimFigmaNode(figmaTreeFromRender(measured)) }),
+    );
+    scene.structure = { mode: 'enforce', map: HERO_MAP };
+    writeFileSync(scenesPath, JSON.stringify(scenes));
   } finally {
     await browser.close();
   }
@@ -213,5 +261,116 @@ test('BLOCK: PR whose screen throws at render time', () => {
   expectBlock(
     scenario('throws', (d) => edit(d, HERO, (s) => s.replace('const headingId = useId();', "const headingId = useId();\n  if (title) throw new Error('boom');"))),
     /boom/,
+  );
+});
+
+// ---- structural check ----------------------------------------------------------
+import { compareStructure, cssColour, findNode, trimFigmaNode } from '../visual/lib/structure.mjs';
+
+const figmaColour = (hex) => ({ r: parseInt(hex.slice(1, 3), 16) / 255, g: parseInt(hex.slice(3, 5), 16) / 255, b: parseInt(hex.slice(5, 7), 16) / 255, a: 1 });
+const fill = (hex) => [{ type: 'SOLID', color: figmaColour(hex) }];
+// A Figma REST node tree: a vertical frame holding a title and a row of two buttons.
+const figmaFrame = () => ({
+  id: '1:1', name: 'Hero', type: 'FRAME', absoluteBoundingBox: { x: 100, y: 50, width: 400, height: 200 },
+  layoutMode: 'VERTICAL', itemSpacing: 32, paddingTop: 40, paddingBottom: 40, fills: fill('#f5f5f5'),
+  children: [
+    { id: '1:2', name: 'Title', type: 'TEXT', characters: 'Title', absoluteBoundingBox: { x: 260, y: 90, width: 80, height: 40 },
+      fills: fill('#1e1e1e'), style: { fontFamily: 'Inter', fontSize: 32, fontWeight: 700, lineHeightPx: 40, letterSpacing: 0 } },
+    { id: '1:3', name: 'Buttons', type: 'FRAME', absoluteBoundingBox: { x: 200, y: 162, width: 200, height: 40 },
+      layoutMode: 'HORIZONTAL', itemSpacing: 16, fills: [],
+      children: [
+        { id: '1:4', name: 'Button', type: 'INSTANCE', absoluteBoundingBox: { x: 200, y: 162, width: 92, height: 40 },
+          fills: fill('#e3e3e3'), strokes: fill('#767676'), strokeWeight: 1, cornerRadius: 8 },
+        { id: '1:5', name: 'Button', type: 'INSTANCE', absoluteBoundingBox: { x: 308, y: 162, width: 92, height: 40 },
+          fills: fill('#2c2c2c'), strokes: [], cornerRadius: 8 },
+      ] },
+  ],
+});
+const MAP = [
+  { figma: '', selector: ':scope', name: 'Section' },
+  { figma: 'Title', selector: 'h1' },
+  { figma: 'Buttons', selector: '.row' },
+  { figma: 'Buttons/Button#1', selector: '.secondary', name: 'Secondary button' },
+  { figma: 'Buttons/Button#2', selector: '.primary', name: 'Primary button' },
+];
+const el = (x, y, width, height, extra = {}) => ({
+  box: { x, y, width, height }, backgroundColor: 'rgba(0, 0, 0, 0)', color: 'rgb(30, 30, 30)', borderWidth: 0,
+  borderStyle: 'none', borderColor: 'rgb(0, 0, 0)', radius: 0, fontFamily: 'Inter, sans-serif', fontSize: 16,
+  fontWeight: 400, lineHeight: null, letterSpacing: 0, ...extra,
+});
+// A render that matches the frame above exactly.
+const matching = () => ({
+  ':scope': el(0, 0, 400, 200, { backgroundColor: 'rgb(245, 245, 245)' }),
+  h1: el(155, 40, 90, 40, { fontSize: 32, fontWeight: 700, lineHeight: 40 }),
+  '.row': el(100, 112, 200, 40),
+  '.secondary': el(100, 112, 92, 40, { backgroundColor: 'rgb(227, 227, 227)', borderWidth: 1, borderStyle: 'solid', borderColor: 'rgb(118, 118, 118)', radius: 8 }),
+  '.primary': el(208, 112, 92, 40, { backgroundColor: 'rgb(44, 44, 44)', radius: 8 }),
+});
+
+test('structure: trims a Figma node tree to frame-relative boxes and styles', () => {
+  const t = trimFigmaNode(figmaFrame());
+  assert.deepEqual(t.box, { x: 0, y: 0, width: 400, height: 200 });
+  assert.deepEqual(t.layout, { mode: 'VERTICAL', itemSpacing: 32, padding: [40, 0, 40, 0] });
+  assert.equal(t.fill.hex, '#f5f5f5');
+  const secondary = findNode(t, 'Buttons/Button#1');
+  assert.deepEqual(secondary.box, { x: 100, y: 112, width: 92, height: 40 });
+  assert.deepEqual(secondary.stroke, { hex: '#767676', opacity: 1, weight: 1 });
+  assert.equal(findNode(t, '1:5').fill.hex, '#2c2c2c');
+  assert.equal(findNode(t, 'Title').text.fontWeight, 700);
+  assert.equal(findNode(t, 'Nope'), null);
+});
+
+test('structure: a matching render has no findings', () => {
+  const r = compareStructure(trimFigmaNode(figmaFrame()), matching(), MAP);
+  assert.deepEqual(r.findings.map((f) => f.message), []);
+  assert.equal(r.checked, 5);
+});
+
+test('structure: names each wrong property with both values', () => {
+  const m = matching();
+  m[':scope'].backgroundColor = 'rgb(255, 255, 255)';
+  m.h1.color = 'rgb(117, 117, 117)';
+  m.h1.fontSize = 28;
+  m['.secondary'].borderStyle = 'none';
+  m['.secondary'].borderWidth = 0;
+  m['.secondary'].box.width = 73;
+  m['.primary'].box.x = 185; // 12px gap after the 73px button, instead of 16
+  const msgs = compareStructure(trimFigmaNode(figmaFrame()), m, MAP).findings.map((f) => f.message);
+  for (const want of [
+    'Section: background #ffffff, Figma #f5f5f5',
+    'Title: text colour #757575, Figma #1e1e1e',
+    'Title: font size 28px, Figma 32px',
+    'Secondary button: border none, Figma 1px #767676',
+    'Secondary button: width 73px, Figma 92px',
+    'Buttons: gap between Secondary button and Primary button 12px, Figma 16px (itemSpacing 16px)',
+  ]) {
+    assert.ok(msgs.includes(want), `missing "${want}" in:\n${msgs.join('\n')}`);
+  }
+});
+
+test('structure: a missing element and an unknown layer are reported', () => {
+  const m = matching();
+  delete m['.primary'];
+  const r = compareStructure(trimFigmaNode(figmaFrame()), { ...m, '.primary': null }, [...MAP, { figma: 'Ghost', selector: '.ghost' }]);
+  assert.ok(r.findings.some((f) => f.message.startsWith('Primary button: element missing')));
+  assert.match(r.errors.join('\n'), /"Ghost" isn't in the snapshot/);
+});
+
+test('structure: parses computed colours', () => {
+  assert.deepEqual(cssColour('rgb(245, 245, 245)'), { hex: '#f5f5f5', opacity: 1 });
+  assert.deepEqual(cssColour('rgba(0, 0, 0, 0)'), { hex: '#000000', opacity: 0 });
+});
+
+test('BLOCK (structural): PR that changes a font weight names the layer and both values', () => {
+  expectBlock(
+    scenario('weight', (d) => edit(d, HERO, (s) => s.replace('fontSize: tokens.font.subtitle, fontWeight: tokens.font.weightRegular', 'fontSize: tokens.font.subtitle, fontWeight: tokens.font.weightBold'))),
+    /Subtitle: font weight 700, Figma 400/,
+  );
+});
+
+test('BLOCK (structural): PR that changes a gap names the gap and both sizes', () => {
+  expectBlock(
+    scenario('gap', (d) => edit(d, HERO, (s) => s.replace('gap: tokens.space.md', 'gap: tokens.space.sm'))),
+    /Buttons: gap between Secondary button and Primary button \d+px, Figma \d+px/,
   );
 });

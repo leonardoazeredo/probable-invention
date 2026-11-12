@@ -40,6 +40,18 @@
         "variant": "Platform=Desktop",
         "url": "https://www.figma.com/design/MPz5qGH25seQpIonTcHUZU/Simple-Design-System--Community-?node-id=2143-15053"
       },
+      "structure": {
+        "mode": "report",
+        "map": [
+          { "figma": "", "selector": ":scope", "name": "Section" },
+          { "figma": "Text Content Title", "selector": "section > div:nth-child(1)", "name": "Text" },
+          { "figma": "Text Content Title/Title", "selector": "h1", "name": "Title" },
+          { "figma": "Text Content Title/Subtitle", "selector": "p", "name": "Subtitle" },
+          { "figma": "Button Group", "selector": "section > div:nth-child(2)", "name": "Buttons" },
+          { "figma": "Button Group/Button#1", "selector": "section > div:nth-child(2) > button:nth-child(1)", "name": "Secondary button" },
+          { "figma": "Button Group/Button#2", "selector": "section > div:nth-child(2) > button:nth-child(2)", "name": "Primary button" }
+        ]
+      },
       "align": "center",
       "pixelThreshold": 0.02,
       "maxDiffRatio": 0.01,
