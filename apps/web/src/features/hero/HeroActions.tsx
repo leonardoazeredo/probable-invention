@@ -14,6 +14,7 @@ export interface HeroActionsProps {
  * "Hero Actions" section from Figma's Simple Design System
  * (Sections / Hero Actions: Text Content Title + Button Group).
  * Composes the canonical Button; layout and type come from tokens.
+ * Known gap: no mobile breakpoint yet (SDS swaps to Title Page on mobile).
  */
 export function HeroActions({
   title,
