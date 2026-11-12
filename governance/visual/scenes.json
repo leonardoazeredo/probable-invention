@@ -1,5 +1,5 @@
 {
-  "$comment": "Figma fidelity scenes. Code-owner protected; the PR gate always reads the base branch copy. pixelThreshold is pixelmatch's per-pixel colour tolerance (0..1); maxDiffRatio is the share of pixels allowed to differ; maxSizeDelta is how many px the rendered size may differ from the frame. Calibration (2026-11-12): a hand-matched hero rendered 0.40% different and 1px taller than Figma, so limits are 1% and 2px. pixelThreshold 0.02 flags a flat colour off by about 6/255 per channel (0.1 let #ffffff pass for #f5f5f5) and didn't raise that noise.",
+  "$comment": "Figma fidelity scenes. Code-owner protected; the PR gate always reads the base branch copy. pixelThreshold is pixelmatch's per-pixel colour tolerance (0..1); maxDiffRatio is the share of pixels allowed to differ; maxSizeDelta is how many px the rendered size may differ from the frame. Calibration (2026-11-12): a hand-matched hero rendered 0.40% different and 1px taller than Figma, so limits are 1% and 2px. pixelThreshold 0.02 flags a flat colour off by about 6/255 per channel (0.1 let #ffffff pass for #f5f5f5) and didn't raise that noise. align is how render and frame are placed before diffing when their sizes differ (\"top-left\" or \"center\"); only the area both cover is diffed, and a size mismatch is reported on its own.",
   "scenes": [
     {
       "id": "hero-actions",
@@ -40,6 +40,7 @@
         "variant": "Platform=Desktop",
         "url": "https://www.figma.com/design/MPz5qGH25seQpIonTcHUZU/Simple-Design-System--Community-?node-id=2143-15053"
       },
+      "align": "center",
       "pixelThreshold": 0.02,
       "maxDiffRatio": 0.01,
       "maxSizeDelta": 2

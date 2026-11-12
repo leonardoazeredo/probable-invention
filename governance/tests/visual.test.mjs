@@ -36,10 +36,60 @@ test('compare: changed region is counted', () => {
   assert.equal(compareImages(a, b).diffPixels, 10);
 });
 
-test('compare: a size mismatch counts the missing area as drift', () => {
+test('compare: a size mismatch is reported on its own, not folded into the diff ratio', () => {
   const r = compareImages(solid(10, 10, [255, 255, 255]), solid(10, 12, [255, 255, 255]));
   assert.equal(r.sizeMatches, false);
-  assert.equal(r.diffPixels, 20);
+  assert.deepEqual(r.actualSize, [10, 12]);
+  assert.equal(r.diffPixels, 0);
+  assert.equal(r.missingPixels, 20);
+  assert.equal(r.diffRatio, 0);
+});
+
+// A 2px-tall dark bar on white, vertically centred in a frame of the given height.
+const bar = (h) => {
+  const png = solid(10, h, [255, 255, 255]);
+  const y = Math.floor((h - 2) / 2);
+  for (let i = y * 10; i < (y + 2) * 10; i++) png.data.set([0, 0, 0, 255], i * 4);
+  return png;
+};
+
+test('compare: center alignment compares content at the matching spot', () => {
+  // Same centred content in a taller frame: no content drift once centred.
+  const centred = compareImages(bar(20), bar(10), { align: 'center' });
+  assert.equal(centred.diffPixels, 0);
+  assert.deepEqual(centred.offsets.actual, [0, 5]);
+  // Top-left alignment puts the bar against the frame's padding.
+  assert.ok(compareImages(bar(20), bar(10), { align: 'top-left' }).diffPixels > 0);
+});
+
+test('compare: changed pixels are grouped into regions in Figma frame coordinates', () => {
+  const a = solid(40, 40, [255, 255, 255]);
+  const b = solid(40, 40, [255, 255, 255]);
+  for (let y = 20; y < 24; y++) for (let x = 8; x < 16; x++) b.data.set([0, 0, 0, 255], (y * 40 + x) * 4);
+  const [region, ...rest] = compareImages(a, b).regions;
+  assert.equal(rest.length, 0);
+  assert.deepEqual([region.x, region.y, region.pixels], [8, 16, 32]);
+  assert.ok(region.x + region.width >= 16 && region.y + region.height >= 24);
+});
+
+test('compare: a different background is named and set aside to locate content changes', () => {
+  const a = solid(40, 40, [245, 245, 245]);
+  const b = solid(40, 40, [255, 255, 255]);
+  for (let y = 0; y < 4; y++) for (let x = 0; x < 8; x++) b.data.set([0, 0, 0, 255], (y * 40 + x) * 4);
+  const r = compareImages(a, b, { threshold: 0.02 });
+  assert.equal(r.dominant.expected.colour, '#f5f5f5');
+  assert.equal(r.dominant.actual.colour, '#ffffff');
+  assert.equal(r.diffPixels, 1600, 'the real diff still counts the background');
+  assert.equal(r.content.diffPixels, 32);
+  assert.equal(r.content.regions.length, 1);
+});
+
+test('the visual job runs in the Playwright image matching the pinned Playwright version', () => {
+  const pkg = JSON.parse(readFileSync(join(REPO, 'package.json'), 'utf8'));
+  const workflow = readFileSync(join(REPO, '.github/workflows/governance-trusted.yml'), 'utf8');
+  const image = workflow.match(/image:\s*mcr\.microsoft\.com\/playwright:v([\d.]+)-/);
+  assert.ok(image, 'visual job should run in mcr.microsoft.com/playwright');
+  assert.equal(image[1], pkg.devDependencies.playwright);
 });
 
 // ---- scenarios ---------------------------------------------------------------
