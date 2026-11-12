@@ -19,6 +19,7 @@ governance/              the judge, the debt scanner and ratchet, budgets, docs
 | **Debt ratchet** | Quality gates eroding through suppressions, inline disables, inline config, severity downgrades, ignore patterns or a11y opt-outs, counted tree-wide per rule, merge base vs head |
 | **Base-branch judge** | A PR weakening the rules that judge it. `governance/trusted` runs from `main` and never executes PR code |
 | **Accessibility** | axe violations in any story (`a11y.test: 'error'`) |
+| **Figma fidelity** (`governance/visual`) | Screens drifting from their Figma frame: each listed screen is rendered from the PR and pixel-diffed against a Figma reference that only `main` supplies. See [governance/VISUAL.md](governance/VISUAL.md) |
 
 What it deliberately does **not** claim: that semantic duplication is
 eliminated. See [governance/CONTROLS.md](governance/CONTROLS.md) for the
@@ -34,6 +35,8 @@ pnpm api:update         # regenerate it after an intended API change
 pnpm debt               # print the debt measurement for this tree
 pnpm test:governance    # acceptance suite: block and pass scenarios
 pnpm test:a11y          # Storybook stories under axe (needs Playwright Chromium)
+pnpm visual             # diff every listed screen against its Figma reference
+pnpm visual:fetch --scene <id> --token-file <path>   # refresh a reference from Figma
 pnpm storybook
 ```
 

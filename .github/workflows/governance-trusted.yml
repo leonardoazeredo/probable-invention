@@ -59,3 +59,59 @@ jobs:
           --trusted trusted
           --head head
           --base ${{ github.event.pull_request.base.sha }}
+
+  # Figma fidelity: renders the PR's screens with base-branch tooling and diffs
+  # them against the base branch's committed Figma references. PR code runs only
+  # inside a network-isolated headless browser, never on the runner itself.
+  visual:
+    name: governance/visual
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out base branch (trusted tooling and references)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: trusted
+          persist-credentials: false
+
+      - name: Check out PR head (data only)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          path: head
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: trusted/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install base-branch dependencies and Chromium
+        working-directory: trusted
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec playwright install --with-deps chromium
+
+      - name: Fetch base into PR clone
+        working-directory: head
+        run: git fetch --no-tags origin ${{ github.event.pull_request.base.sha }}
+
+      - name: Diff PR screens against Figma references
+        run: >
+          node trusted/governance/visual/visual-check.mjs
+          --trusted trusted
+          --head head
+          --base ${{ github.event.pull_request.base.sha }}
+          --out visual-result
+
+      - name: Upload rendered, reference and diff images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff
+          path: visual-result/
+          if-no-files-found: ignore

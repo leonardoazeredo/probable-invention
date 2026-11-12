@@ -264,3 +264,13 @@ test('BLOCK: new story opts out of the a11y gate (todo)', () => {
     /a11y:todo/,
   );
 });
+
+test('BLOCK: PR workflow that could impersonate the visual check', () => {
+  expectBlock(
+    scenario({
+      pr: (d) =>
+        write(d, '.github/workflows/fake.yml', 'on: pull_request\njobs:\n  x:\n    name: governance/visual\n    runs-on: ubuntu-latest\n    steps:\n      - run: exit 0\n'),
+    }),
+    /impersonate/,
+  );
+});

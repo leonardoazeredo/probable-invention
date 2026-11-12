@@ -1,0 +1,30 @@
+{
+  "source": "Figma web export, PNG 1x",
+  "fileUrl": "https://www.figma.com/design/MPz5qGH25seQpIonTcHUZU/Simple-Design-System--Community-?node-id=2143-15053",
+  "fileKey": "MPz5qGH25seQpIonTcHUZU",
+  "communitySourceUrl": "https://www.figma.com/community/file/1380235722331273046/simple-design-system",
+  "page": "Sections",
+  "componentSetId": "348:15901",
+  "componentSetName": "Hero Actions",
+  "nodeId": "2143:15053",
+  "nodeName": "Platform=Desktop",
+  "nodeType": "COMPONENT",
+  "variant": {
+    "Platform": "Desktop"
+  },
+  "frame": {
+    "width": 1200,
+    "height": 524
+  },
+  "scale": 1,
+  "png": {
+    "file": "hero-actions.png",
+    "width": 1200,
+    "height": 524,
+    "sha256": "77870ffdcc37bf50ec907c217bfcbee4d722f0e3eaddf54bb4c52889a8395f65"
+  },
+  "version": null,
+  "lastModified": null,
+  "exportedAt": "2026-11-12T01:18:15Z",
+  "scene": "hero-actions"
+}

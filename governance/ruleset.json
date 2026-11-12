@@ -23,6 +23,7 @@
         "strict_required_status_checks_policy": false,
         "required_status_checks": [
           { "context": "governance/trusted", "integration_id": 15368 },
+          { "context": "governance/visual", "integration_id": 15368 },
           { "context": "build-and-test", "integration_id": 15368 }
         ]
       }
