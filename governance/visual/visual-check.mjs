@@ -20,6 +20,7 @@ import { compareImages, readPng, writePng } from './lib/compare.mjs';
 import { bundleScene, launchBrowser, renderScene } from './lib/render.mjs';
 import { sceneReport } from './lib/report.mjs';
 import { compareStructure } from './lib/structure.mjs';
+import { makeVariableHint, parseTokens } from './lib/tokens.mjs';
 
 const { values } = parseArgs({
   options: {
@@ -56,6 +57,13 @@ if (values.base) {
 const globalChange = changedFiles.some((f) => GLOBAL_RE.test(f));
 
 const { scenes } = JSON.parse(readFileSync(join(VISUAL, 'scenes.json'), 'utf8'));
+// Figma variable -> design-system token hints, both from the base branch.
+const variablesPath = join(VISUAL, 'figma-variables.json');
+const tokensPath = join(TRUSTED, 'packages/design-system/src/tokens/tokens.ts');
+const variableHint =
+  existsSync(variablesPath) && existsSync(tokensPath)
+    ? makeVariableHint(JSON.parse(readFileSync(variablesPath, 'utf8')).variables, parseTokens(readFileSync(tokensPath, 'utf8')))
+    : () => '';
 const failures = [];
 const rows = [];
 const browser = await launchBrowser();
@@ -150,7 +158,7 @@ try {
     const findings = [];
     let structural = null;
     if (snapshot) {
-      structural = compareStructure(snapshot, measured, structure.map, structure.tolerance);
+      structural = compareStructure(snapshot, measured, structure.map, structure.tolerance, { variableHint });
       for (const e of structural.errors) notes.push(`${scene.id}: ${e}`);
       findings.push(...structural.findings.map((f) => f.message));
     }

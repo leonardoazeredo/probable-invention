@@ -144,21 +144,33 @@ const DEFAULT_TOLERANCE = { box: 1, textBox: 2, colour: 2, lineHeight: 1, letter
  * @param {object} snapshot trimmed Figma tree (trimFigmaNode)
  * @param {Record<string, object|null>} measured measureInPage result
  * @param {Array<{ figma: string, selector: string, name?: string }>} map scene.structure.map
+ * @param {object} [tolerance]
+ * @param {{ variableHint?: (variableId: string) => string }} [opts] variableHint
+ *   returns a suffix naming the Figma variable and design-system token.
  * @returns {{ findings: Array<{ element: string, property: string, actual: string, expected: string, message: string }>, checked: number, errors: string[] }}
  */
-export function compareStructure(snapshot, measured, map, tolerance = {}) {
+export function compareStructure(snapshot, measured, map, tolerance = {}, { variableHint = () => '' } = {}) {
   const tol = { ...DEFAULT_TOLERANCE, ...tolerance };
   const findings = [];
   const errors = [];
   let checked = 0;
-  const add = (element, property, actual, expected, note = '') =>
+  const add = (element, property, actual, expected, note = '', variable) => {
+    const hint = variable ? variableHint(variable) : '';
     findings.push({
       element,
       property,
       actual: String(actual),
       expected: String(expected),
-      message: `${element}: ${property} ${actual}, Figma ${expected}${note}`,
+      ...(variable ? { variable } : {}),
+      message: `${element}: ${property} ${actual}, Figma ${expected}${note}${hint}`,
     });
+  };
+  // The Figma variable bound to a property, if any (ids from trimFigmaNode).
+  const v = (node, key, sub) => {
+    const x = node.variables?.[key];
+    const y = sub ? x?.[sub] : x;
+    return Array.isArray(y) ? y[0] : typeof y === 'string' ? y : undefined;
+  };
   const px = (n) => `${round(n, 1)}px`;
   const resolved = [];
   const parents = new Map();
@@ -207,24 +219,32 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
       ...(isText ? [] : [['x', 'left'], ['width', 'width']]),
     ]) {
       if (Math.abs(rel.el[k] - rel.node[k]) > boxTol) {
-        add(label, k === 'x' || k === 'y' ? `${prop}${where}` : prop, px(rel.el[k]), px(rel.node[k]));
+        // The first child's offset in an auto-layout parent is its padding.
+        const parent = parents.get(node);
+        const first =
+          parent === anc && parent?.layout && (parent.children ?? []).filter((c) => !c.hidden)[0] === node;
+        const padVar =
+          first && k === (parent.layout.mode === 'VERTICAL' ? 'y' : 'x')
+            ? v(parent, k === 'y' ? 'paddingTop' : 'paddingLeft')
+            : undefined;
+        add(label, k === 'x' || k === 'y' ? `${prop}${where}` : prop, px(rel.el[k]), px(rel.node[k]), '', padVar);
       }
     }
 
     if (isText) {
       const t = node.text ?? {};
       const colour = cssColour(el.color);
-      if (node.fill && colour && channelDelta(colour.hex, node.fill.hex) > tol.colour) add(label, 'text colour', colour.hex, node.fill.hex);
-      if (t.fontSize != null && Math.abs(el.fontSize - t.fontSize) > 0.01) add(label, 'font size', px(el.fontSize), px(t.fontSize));
-      if (t.fontWeight != null && el.fontWeight !== t.fontWeight) add(label, 'font weight', el.fontWeight, t.fontWeight);
+      if (node.fill && colour && channelDelta(colour.hex, node.fill.hex) > tol.colour) add(label, 'text colour', colour.hex, node.fill.hex, '', v(node, 'fills'));
+      if (t.fontSize != null && Math.abs(el.fontSize - t.fontSize) > 0.01) add(label, 'font size', px(el.fontSize), px(t.fontSize), '', v(node, 'fontSize'));
+      if (t.fontWeight != null && el.fontWeight !== t.fontWeight) add(label, 'font weight', el.fontWeight, t.fontWeight, '', v(node, 'fontWeight'));
       if (t.lineHeight != null && el.lineHeight != null && Math.abs(el.lineHeight - t.lineHeight) > tol.lineHeight) {
-        add(label, 'line height', px(el.lineHeight), px(t.lineHeight));
+        add(label, 'line height', px(el.lineHeight), px(t.lineHeight), '', v(node, 'lineHeight'));
       }
       if (Math.abs(el.letterSpacing - (t.letterSpacing ?? 0)) > tol.letterSpacing) {
-        add(label, 'letter spacing', px(el.letterSpacing), px(t.letterSpacing ?? 0));
+        add(label, 'letter spacing', px(el.letterSpacing), px(t.letterSpacing ?? 0), '', v(node, 'letterSpacing'));
       }
       if (t.fontFamily && !el.fontFamily.toLowerCase().includes(t.fontFamily.toLowerCase())) {
-        add(label, 'font family', el.fontFamily, t.fontFamily);
+        add(label, 'font family', el.fontFamily, t.fontFamily, '', v(node, 'fontFamily'));
       }
       continue;
     }
@@ -232,8 +252,8 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
     const bg = cssColour(el.backgroundColor);
     const bgVisible = bg && bg.opacity > 0;
     if (node.fill) {
-      if (!bgVisible) add(label, 'background', 'none', node.fill.hex);
-      else if (channelDelta(bg.hex, node.fill.hex) > tol.colour) add(label, 'background', bg.hex, node.fill.hex);
+      if (!bgVisible) add(label, 'background', 'none', node.fill.hex, '', v(node, 'fills'));
+      else if (channelDelta(bg.hex, node.fill.hex) > tol.colour) add(label, 'background', bg.hex, node.fill.hex, '', v(node, 'fills'));
     } else if (bgVisible && entry.checkBackground !== false) {
       // Only flag a background Figma doesn't have when the element isn't the
       // frame root, whose page background the screenshot always shows.
@@ -242,16 +262,16 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
 
     const border = el.borderStyle !== 'none' && el.borderWidth > 0 ? cssColour(el.borderColor) : null;
     if (node.stroke) {
-      if (!border) add(label, 'border', 'none', `${px(node.stroke.weight)} ${node.stroke.hex}`);
+      if (!border) add(label, 'border', 'none', `${px(node.stroke.weight)} ${node.stroke.hex}`, '', v(node, 'strokes'));
       else {
-        if (Math.abs(el.borderWidth - node.stroke.weight) > 0.01) add(label, 'border width', px(el.borderWidth), px(node.stroke.weight));
-        if (channelDelta(border.hex, node.stroke.hex) > tol.colour) add(label, 'border colour', border.hex, node.stroke.hex);
+        if (Math.abs(el.borderWidth - node.stroke.weight) > 0.01) add(label, 'border width', px(el.borderWidth), px(node.stroke.weight), '', v(node, 'individualStrokeWeights', 'BORDER_TOP_WEIGHT') ?? v(node, 'strokeWeight'));
+        if (channelDelta(border.hex, node.stroke.hex) > tol.colour) add(label, 'border colour', border.hex, node.stroke.hex, '', v(node, 'strokes'));
       }
     } else if (border) {
       add(label, 'border', `${px(el.borderWidth)} ${border.hex}`, 'none');
     }
 
-    if (node.radius != null && Math.abs(el.radius - node.radius) > 0.5) add(label, 'corner radius', px(el.radius), px(node.radius));
+    if (node.radius != null && Math.abs(el.radius - node.radius) > 0.5) add(label, 'corner radius', px(el.radius), px(node.radius), '', v(node, 'rectangleCornerRadii', 'RECTANGLE_TOP_LEFT_CORNER_RADIUS') ?? v(node, 'topLeftRadius'));
   }
 
   // Auto-layout spacing: for each mapped auto-layout frame, the gaps between
@@ -272,7 +292,7 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
       // Text boxes can differ in height by a pixel or two; allow that here.
       const gapTol = a.node.type === 'TEXT' || b.node.type === 'TEXT' ? tol.textBox : tol.box;
       if (Math.abs(gap - figmaGap) > gapTol) {
-        add(`${parent.label}`, `gap between ${a.label} and ${b.label}`, px(gap), px(figmaGap), ` (itemSpacing ${layout.itemSpacing}px)`);
+        add(`${parent.label}`, `gap between ${a.label} and ${b.label}`, px(gap), px(figmaGap), ` (itemSpacing ${layout.itemSpacing}px)`, v(parent.node, 'itemSpacing'));
       }
     }
   }

@@ -374,3 +374,32 @@ test('BLOCK (structural): PR that changes a gap names the gap and both sizes', (
     /Buttons: gap between Secondary button and Primary button \d+px, Figma \d+px/,
   );
 });
+
+// ---- token hints ---------------------------------------------------------------
+import { makeVariableHint, parseTokens } from '../visual/lib/tokens.mjs';
+
+test('tokens: parses tokens.ts groups, one-line groups and the SDS variable comments', () => {
+  const t = parseTokens(readFileSync(join(REPO, 'packages/design-system/src/tokens/tokens.ts'), 'utf8'));
+  const find = (p) => t.find((x) => x.path === p);
+  assert.deepEqual(find('tokens.color.textSecondary'), { path: 'tokens.color.textSecondary', value: '#757575', variable: 'Text/Default/Secondary' });
+  assert.equal(find('tokens.space.xxl').variable, 'Space/800');
+  assert.equal(find('tokens.radius.md').variable, 'Radius/200');
+  assert.equal(find('tokens.font.subtitle').variable, 'Subtitle/Size/Base');
+});
+
+test('tokens: a finding names the Figma variable and the token to use, or says none exists', () => {
+  const variables = JSON.parse(readFileSync(join(REPO, 'governance/visual/figma-variables.json'), 'utf8')).variables;
+  const hint = makeVariableHint(variables, parseTokens(readFileSync(join(REPO, 'packages/design-system/src/tokens/tokens.ts'), 'utf8')));
+  assert.equal(hint('VariableID:3919:36451'), ' → Figma variable Text/Default/Secondary; use tokens.color.textSecondary');
+  assert.equal(hint('VariableID:66:10177'), ' → Figma variable Subtitle/Size Base; use tokens.font.subtitle');
+  assert.match(hint('VariableID:3919:36424'), /Background\/Default\/Secondary \(#f5f5f5\); no design-system token maps to it yet/);
+  assert.equal(hint('VariableID:0:0'), '');
+
+  const snap = trimFigmaNode(figmaFrame());
+  findNode(snap, 'Title').variables = { fills: ['VariableID:3919:36451'] };
+  const m = matching();
+  m.h1.color = 'rgb(0, 0, 0)';
+  const [f] = compareStructure(snap, m, MAP, {}, { variableHint: hint }).findings;
+  assert.equal(f.variable, 'VariableID:3919:36451');
+  assert.match(f.message, /Title: text colour #000000, Figma #1e1e1e → Figma variable Text\/Default\/Secondary; use tokens\.color\.textSecondary/);
+});

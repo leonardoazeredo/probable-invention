@@ -1,0 +1,2028 @@
+{
+  "$comment": "Figma variable id -> name, type and light-mode value, built by build-figma-variables.mjs from Simple Design System's published variables export (MIT, Copyright (c) 2024 Figma). Do not edit by hand.",
+  "source": "figma/sds@05525f75192a3aa5d5690c5e41277ebd19d2efe1 scripts/tokens/tokens.json",
+  "variables": {
+    "VariableID:106:12464": {
+      "name": "Background/Neutral/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#5a5a5a"
+    },
+    "VariableID:106:12465": {
+      "name": "Background/Neutral/Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#434343"
+    },
+    "VariableID:106:12466": {
+      "name": "Background/Neutral/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#cdcdcd"
+    },
+    "VariableID:106:12467": {
+      "name": "Background/Neutral/Secondary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#b2b2b2"
+    },
+    "VariableID:106:12468": {
+      "name": "Background/Neutral/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#e3e3e3"
+    },
+    "VariableID:106:12469": {
+      "name": "Background/Neutral/Tertiary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#cdcdcd"
+    },
+    "VariableID:106:12473": {
+      "name": "Text/Neutral/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#303030"
+    },
+    "VariableID:106:12474": {
+      "name": "Text/Neutral/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#5a5a5a"
+    },
+    "VariableID:106:12475": {
+      "name": "Text/Neutral/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#767676"
+    },
+    "VariableID:106:12476": {
+      "name": "Text/Neutral/On Neutral",
+      "collection": "color",
+      "type": "color",
+      "value": "#f3f3f3"
+    },
+    "VariableID:106:12477": {
+      "name": "Text/Neutral/On Neutral Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#303030"
+    },
+    "VariableID:106:12478": {
+      "name": "Text/Neutral/On Neutral Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#434343"
+    },
+    "VariableID:106:12479": {
+      "name": "Icon/Neutral/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#303030"
+    },
+    "VariableID:106:12480": {
+      "name": "Icon/Neutral/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#5a5a5a"
+    },
+    "VariableID:106:12481": {
+      "name": "Icon/Neutral/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#767676"
+    },
+    "VariableID:106:12482": {
+      "name": "Icon/Neutral/On Neutral",
+      "collection": "color",
+      "type": "color",
+      "value": "#f3f3f3"
+    },
+    "VariableID:106:12483": {
+      "name": "Icon/Neutral/On Neutral Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#303030"
+    },
+    "VariableID:106:12484": {
+      "name": "Icon/Neutral/On Neutral Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#434343"
+    },
+    "VariableID:106:12485": {
+      "name": "Border/Neutral/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#303030"
+    },
+    "VariableID:106:12486": {
+      "name": "Border/Neutral/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#767676"
+    },
+    "VariableID:106:5932": {
+      "name": "Icon/Brand/On Brand Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:106:5933": {
+      "name": "Icon/Warning/On Warning Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#522504"
+    },
+    "VariableID:106:5934": {
+      "name": "Icon/Danger/On Danger Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:106:5935": {
+      "name": "Icon/Positive/On Positive Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#024023"
+    },
+    "VariableID:107:11150": {
+      "name": "Space/1600",
+      "collection": "size",
+      "type": "number",
+      "value": 64
+    },
+    "VariableID:159:12723": {
+      "name": "Border/Default/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#383838"
+    },
+    "VariableID:159:12724": {
+      "name": "Border/Neutral/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#b2b2b2"
+    },
+    "VariableID:159:12725": {
+      "name": "Border/Brand/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:159:12726": {
+      "name": "Border/Positive/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#14ae5c"
+    },
+    "VariableID:159:12727": {
+      "name": "Border/Warning/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#bf6a02"
+    },
+    "VariableID:159:12728": {
+      "name": "Border/Danger/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#ec221f"
+    },
+    "VariableID:197:17450": {
+      "name": "Stroke/Border",
+      "collection": "size",
+      "type": "number",
+      "value": 1
+    },
+    "VariableID:197:17451": {
+      "name": "Stroke/Focus Ring",
+      "collection": "size",
+      "type": "number",
+      "value": 2
+    },
+    "VariableID:2002:7433": {
+      "name": "Background/Positive/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#ebffee"
+    },
+    "VariableID:2002:7447": {
+      "name": "Background/Positive/Tertiary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#cff7d3"
+    },
+    "VariableID:2002:7448": {
+      "name": "Background/Warning/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#fffbeb"
+    },
+    "VariableID:2002:7449": {
+      "name": "Background/Warning/Tertiary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#fff1c2"
+    },
+    "VariableID:2002:7450": {
+      "name": "Background/Danger/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#fee9e7"
+    },
+    "VariableID:2002:7451": {
+      "name": "Background/Danger/Tertiary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#fdd3d0"
+    },
+    "VariableID:2002:7453": {
+      "name": "Text/Warning/On Warning Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#522504"
+    },
+    "VariableID:2002:7454": {
+      "name": "Text/Danger/On Danger Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:2002:7455": {
+      "name": "Text/Positive/On Positive Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:2103:22306": {
+      "name": "Subheading/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:2103:22307": {
+      "name": "Subheading/Size Small",
+      "collection": "typography",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:2103:22308": {
+      "name": "Subheading/Size Medium",
+      "collection": "typography",
+      "type": "number",
+      "value": 20
+    },
+    "VariableID:2103:22309": {
+      "name": "Subheading/Size Large",
+      "collection": "typography",
+      "type": "number",
+      "value": 24
+    },
+    "VariableID:2103:22310": {
+      "name": "Subheading/Font Weight",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 400
+    },
+    "VariableID:2142:11243": {
+      "name": "Background/Utilities/Blanket",
+      "collection": "color",
+      "type": "color",
+      "value": "#000000b2"
+    },
+    "VariableID:228:6769": {
+      "name": "Blur/100",
+      "collection": "size",
+      "type": "number",
+      "value": 4
+    },
+    "VariableID:231:21547": {
+      "name": "Scale",
+      "collection": "responsive",
+      "type": "number",
+      "value": 1
+    },
+    "VariableID:234:21585": {
+      "name": "Device",
+      "collection": "responsive",
+      "type": "unknown",
+      "value": "desktop"
+    },
+    "VariableID:280:16481": {
+      "name": "Pink/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fcf1fd"
+    },
+    "VariableID:280:16482": {
+      "name": "Pink/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fae1fa"
+    },
+    "VariableID:280:16483": {
+      "name": "Pink/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#f5c0ef"
+    },
+    "VariableID:280:16486": {
+      "name": "Pink/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#f19edc"
+    },
+    "VariableID:280:16490": {
+      "name": "Pink/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ea3fb8"
+    },
+    "VariableID:280:16491": {
+      "name": "Pink/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#d732a8"
+    },
+    "VariableID:280:16493": {
+      "name": "Pink/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ba2a92"
+    },
+    "VariableID:280:16494": {
+      "name": "Pink/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#8a226f"
+    },
+    "VariableID:280:16497": {
+      "name": "Pink/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#57184a"
+    },
+    "VariableID:280:16498": {
+      "name": "Pink/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#3f1536"
+    },
+    "VariableID:280:16549": {
+      "name": "Icon/Utilities/Icon On Measurement",
+      "collection": "color",
+      "type": "color",
+      "value": "#8a226f"
+    },
+    "VariableID:315:32841": {
+      "name": "Border/Utilities/Swatch",
+      "collection": "color",
+      "type": "color",
+      "value": "#0000003d"
+    },
+    "VariableID:320:298": {
+      "name": "Icon/Utilities/Icon",
+      "collection": "color",
+      "type": "color",
+      "value": "#d732a8"
+    },
+    "VariableID:346:10896": {
+      "name": "Space/4000",
+      "collection": "size",
+      "type": "number",
+      "value": 160
+    },
+    "VariableID:346:10902": {
+      "name": "Space/800",
+      "collection": "size",
+      "type": "number",
+      "value": 32
+    },
+    "VariableID:346:10903": {
+      "name": "Space/1200",
+      "collection": "size",
+      "type": "number",
+      "value": 48
+    },
+    "VariableID:346:10904": {
+      "name": "Space/2400",
+      "collection": "size",
+      "type": "number",
+      "value": 96
+    },
+    "VariableID:364:11151": {
+      "name": "Space/0",
+      "collection": "size",
+      "type": "number",
+      "value": 0
+    },
+    "VariableID:364:11161": {
+      "name": "Space/050",
+      "collection": "size",
+      "type": "number",
+      "value": 2
+    },
+    "VariableID:364:11163": {
+      "name": "Space/150",
+      "collection": "size",
+      "type": "number",
+      "value": 6
+    },
+    "VariableID:3919:36423": {
+      "name": "Background/Default/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "VariableID:3919:36424": {
+      "name": "Background/Default/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:3919:36425": {
+      "name": "Background/Default/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "VariableID:3919:36426": {
+      "name": "Background/Default/Default Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:3919:36428": {
+      "name": "Background/Brand/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:3919:36430": {
+      "name": "Background/Brand/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#e6e6e6"
+    },
+    "VariableID:3919:36431": {
+      "name": "Background/Brand/Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:3919:36433": {
+      "name": "Background/Positive/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#14ae5c"
+    },
+    "VariableID:3919:36435": {
+      "name": "Background/Positive/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#cff7d3"
+    },
+    "VariableID:3919:36436": {
+      "name": "Background/Positive/Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#009951"
+    },
+    "VariableID:3919:36438": {
+      "name": "Background/Warning/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#e8b931"
+    },
+    "VariableID:3919:36440": {
+      "name": "Background/Warning/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#fff1c2"
+    },
+    "VariableID:3919:36441": {
+      "name": "Background/Warning/Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#e5a000"
+    },
+    "VariableID:3919:36443": {
+      "name": "Background/Danger/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#ec221f"
+    },
+    "VariableID:3919:36445": {
+      "name": "Background/Danger/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#fdd3d0"
+    },
+    "VariableID:3919:36446": {
+      "name": "Background/Danger/Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#c00f0c"
+    },
+    "VariableID:3919:36448": {
+      "name": "Background/Disabled/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "VariableID:3919:36450": {
+      "name": "Text/Default/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:3919:36451": {
+      "name": "Text/Default/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:3919:36452": {
+      "name": "Text/Default/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36456": {
+      "name": "Text/Brand/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:3919:36457": {
+      "name": "Text/Brand/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#444444"
+    },
+    "VariableID:3919:36458": {
+      "name": "Text/Brand/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:3919:36459": {
+      "name": "Text/Brand/On Brand",
+      "collection": "color",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:3919:36461": {
+      "name": "Text/Brand/On Brand Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:3919:36462": {
+      "name": "Text/Positive/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:3919:36463": {
+      "name": "Text/Positive/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#009951"
+    },
+    "VariableID:3919:36464": {
+      "name": "Text/Positive/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#14ae5c"
+    },
+    "VariableID:3919:36465": {
+      "name": "Text/Positive/On Positive",
+      "collection": "color",
+      "type": "color",
+      "value": "#ebffee"
+    },
+    "VariableID:3919:36467": {
+      "name": "Text/Positive/On Positive Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:3919:36468": {
+      "name": "Text/Warning/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#522504"
+    },
+    "VariableID:3919:36469": {
+      "name": "Text/Warning/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#975102"
+    },
+    "VariableID:3919:36470": {
+      "name": "Text/Warning/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#bf6a02"
+    },
+    "VariableID:3919:36471": {
+      "name": "Text/Warning/On Warning",
+      "collection": "color",
+      "type": "color",
+      "value": "#401b01"
+    },
+    "VariableID:3919:36473": {
+      "name": "Text/Warning/On Warning Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#682d03"
+    },
+    "VariableID:3919:36474": {
+      "name": "Text/Danger/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:3919:36475": {
+      "name": "Text/Danger/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#c00f0c"
+    },
+    "VariableID:3919:36476": {
+      "name": "Text/Danger/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#ec221f"
+    },
+    "VariableID:3919:36477": {
+      "name": "Text/Danger/On Danger",
+      "collection": "color",
+      "type": "color",
+      "value": "#fee9e7"
+    },
+    "VariableID:3919:36479": {
+      "name": "Text/Danger/On Danger Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:3919:36480": {
+      "name": "Text/Disabled/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36481": {
+      "name": "Text/Disabled/On Disabled",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36482": {
+      "name": "Icon/Default/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:3919:36483": {
+      "name": "Icon/Default/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:3919:36484": {
+      "name": "Icon/Default/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36488": {
+      "name": "Icon/Brand/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:3919:36489": {
+      "name": "Icon/Brand/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#444444"
+    },
+    "VariableID:3919:36490": {
+      "name": "Icon/Brand/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:3919:36491": {
+      "name": "Icon/Brand/On Brand",
+      "collection": "color",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:3919:36493": {
+      "name": "Icon/Brand/On Brand Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:3919:36494": {
+      "name": "Icon/Positive/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:3919:36495": {
+      "name": "Icon/Positive/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#009951"
+    },
+    "VariableID:3919:36496": {
+      "name": "Icon/Positive/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#14ae5c"
+    },
+    "VariableID:3919:36497": {
+      "name": "Icon/Positive/On Positive",
+      "collection": "color",
+      "type": "color",
+      "value": "#ebffee"
+    },
+    "VariableID:3919:36498": {
+      "name": "Icon/Positive/On Positive Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:3919:36500": {
+      "name": "Icon/Warning/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#522504"
+    },
+    "VariableID:3919:36501": {
+      "name": "Icon/Warning/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#975102"
+    },
+    "VariableID:3919:36502": {
+      "name": "Icon/Warning/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#bf6a02"
+    },
+    "VariableID:3919:36503": {
+      "name": "Icon/Warning/On Warning",
+      "collection": "color",
+      "type": "color",
+      "value": "#401b01"
+    },
+    "VariableID:3919:36504": {
+      "name": "Icon/Warning/On Warning Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#682d03"
+    },
+    "VariableID:3919:36506": {
+      "name": "Icon/Danger/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:3919:36507": {
+      "name": "Icon/Danger/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#c00f0c"
+    },
+    "VariableID:3919:36508": {
+      "name": "Icon/Danger/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#ec221f"
+    },
+    "VariableID:3919:36509": {
+      "name": "Icon/Danger/On Danger",
+      "collection": "color",
+      "type": "color",
+      "value": "#fee9e7"
+    },
+    "VariableID:3919:36510": {
+      "name": "Icon/Danger/On Danger Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:3919:36512": {
+      "name": "Icon/Disabled/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36513": {
+      "name": "Icon/Disabled/On Disabled",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36514": {
+      "name": "Border/Default/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "VariableID:3919:36515": {
+      "name": "Border/Default/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:3919:36516": {
+      "name": "Border/Brand/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:3919:36517": {
+      "name": "Border/Brand/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#444444"
+    },
+    "VariableID:3919:36520": {
+      "name": "Border/Positive/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:3919:36521": {
+      "name": "Border/Positive/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#009951"
+    },
+    "VariableID:3919:36524": {
+      "name": "Border/Warning/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#522504"
+    },
+    "VariableID:3919:36525": {
+      "name": "Border/Warning/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#975102"
+    },
+    "VariableID:3919:36528": {
+      "name": "Border/Danger/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:3919:36529": {
+      "name": "Border/Danger/Secondary",
+      "collection": "color",
+      "type": "color",
+      "value": "#c00f0c"
+    },
+    "VariableID:3919:36532": {
+      "name": "Border/Disabled/Default",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36534": {
+      "name": "Slate/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#f3f3f3"
+    },
+    "VariableID:3919:36535": {
+      "name": "Slate/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#e3e3e3"
+    },
+    "VariableID:3919:36536": {
+      "name": "Slate/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#cdcdcd"
+    },
+    "VariableID:3919:36537": {
+      "name": "Slate/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#b2b2b2"
+    },
+    "VariableID:3919:36538": {
+      "name": "Slate/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#949494"
+    },
+    "VariableID:3919:36539": {
+      "name": "Slate/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#767676"
+    },
+    "VariableID:3919:36540": {
+      "name": "Slate/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#5a5a5a"
+    },
+    "VariableID:3919:36541": {
+      "name": "Slate/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#434343"
+    },
+    "VariableID:3919:36542": {
+      "name": "Slate/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#303030"
+    },
+    "VariableID:3919:36543": {
+      "name": "Slate/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#242424"
+    },
+    "VariableID:3919:36544": {
+      "name": "White/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffff0d"
+    },
+    "VariableID:3919:36545": {
+      "name": "White/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffff1a"
+    },
+    "VariableID:3919:36546": {
+      "name": "White/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffff33"
+    },
+    "VariableID:3919:36547": {
+      "name": "White/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffff66"
+    },
+    "VariableID:3919:36548": {
+      "name": "White/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffffb2"
+    },
+    "VariableID:3919:36549": {
+      "name": "White/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffffcc"
+    },
+    "VariableID:3919:36550": {
+      "name": "White/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffffd9"
+    },
+    "VariableID:3919:36551": {
+      "name": "White/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffffe5"
+    },
+    "VariableID:3919:36552": {
+      "name": "White/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fffffff2"
+    },
+    "VariableID:3919:36553": {
+      "name": "White/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "VariableID:3919:36614": {
+      "name": "Brand/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:3919:36615": {
+      "name": "Brand/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#e6e6e6"
+    },
+    "VariableID:3919:36616": {
+      "name": "Brand/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "VariableID:3919:36617": {
+      "name": "Brand/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:3919:36618": {
+      "name": "Brand/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:3919:36619": {
+      "name": "Brand/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#444444"
+    },
+    "VariableID:3919:36620": {
+      "name": "Brand/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#383838"
+    },
+    "VariableID:3919:36621": {
+      "name": "Brand/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:3919:36622": {
+      "name": "Brand/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:3919:36623": {
+      "name": "Brand/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#111111"
+    },
+    "VariableID:3919:36624": {
+      "name": "Red/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fee9e7"
+    },
+    "VariableID:3919:36625": {
+      "name": "Red/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fdd3d0"
+    },
+    "VariableID:3919:36626": {
+      "name": "Red/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fcb3ad"
+    },
+    "VariableID:3919:36627": {
+      "name": "Red/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#f4776a"
+    },
+    "VariableID:3919:36628": {
+      "name": "Red/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ec221f"
+    },
+    "VariableID:3919:36629": {
+      "name": "Red/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#c00f0c"
+    },
+    "VariableID:3919:36630": {
+      "name": "Red/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#900b09"
+    },
+    "VariableID:3919:36631": {
+      "name": "Red/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#690807"
+    },
+    "VariableID:3919:36632": {
+      "name": "Red/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#4d0b0a"
+    },
+    "VariableID:3919:36633": {
+      "name": "Red/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#300603"
+    },
+    "VariableID:3919:36644": {
+      "name": "Yellow/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fffbeb"
+    },
+    "VariableID:3919:36645": {
+      "name": "Yellow/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#fff1c2"
+    },
+    "VariableID:3919:36646": {
+      "name": "Yellow/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ffe8a3"
+    },
+    "VariableID:3919:36647": {
+      "name": "Yellow/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#e8b931"
+    },
+    "VariableID:3919:36648": {
+      "name": "Yellow/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#e5a000"
+    },
+    "VariableID:3919:36649": {
+      "name": "Yellow/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#bf6a02"
+    },
+    "VariableID:3919:36650": {
+      "name": "Yellow/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#975102"
+    },
+    "VariableID:3919:36651": {
+      "name": "Yellow/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#682d03"
+    },
+    "VariableID:3919:36652": {
+      "name": "Yellow/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#522504"
+    },
+    "VariableID:3919:36653": {
+      "name": "Yellow/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#401b01"
+    },
+    "VariableID:3919:36654": {
+      "name": "Green/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#ebffee"
+    },
+    "VariableID:3919:36655": {
+      "name": "Green/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#cff7d3"
+    },
+    "VariableID:3919:36656": {
+      "name": "Green/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#aff4c6"
+    },
+    "VariableID:3919:36657": {
+      "name": "Green/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#85e0a3"
+    },
+    "VariableID:3919:36658": {
+      "name": "Green/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#14ae5c"
+    },
+    "VariableID:3919:36659": {
+      "name": "Green/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#009951"
+    },
+    "VariableID:3919:36660": {
+      "name": "Green/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#008043"
+    },
+    "VariableID:3919:36661": {
+      "name": "Green/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#02542d"
+    },
+    "VariableID:3919:36662": {
+      "name": "Green/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#024023"
+    },
+    "VariableID:3919:36663": {
+      "name": "Green/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#062d1b"
+    },
+    "VariableID:4035:5558": {
+      "name": "Background/Brand/Secondary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "VariableID:409:8191": {
+      "name": "Icon/Small",
+      "collection": "size",
+      "type": "number",
+      "value": 24
+    },
+    "VariableID:409:8192": {
+      "name": "Icon/Medium",
+      "collection": "size",
+      "type": "number",
+      "value": 32
+    },
+    "VariableID:409:8193": {
+      "name": "Icon/Large",
+      "collection": "size",
+      "type": "number",
+      "value": 40
+    },
+    "VariableID:56:8551": {
+      "name": "Weight Light Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Light Italic"
+    },
+    "VariableID:56:8552": {
+      "name": "Weight Regular Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Italic"
+    },
+    "VariableID:56:8553": {
+      "name": "Weight Bold Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Bold Italic"
+    },
+    "VariableID:56:9308": {
+      "name": "Radius/Full",
+      "collection": "size",
+      "type": "number",
+      "value": 9999
+    },
+    "VariableID:56:9309": {
+      "name": "Background/Default/Secondary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#e6e6e6"
+    },
+    "VariableID:56:9310": {
+      "name": "Background/Default/Tertiary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:56:9907": {
+      "name": "Background/Positive/Secondary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#aff4c6"
+    },
+    "VariableID:56:9908": {
+      "name": "Background/Warning/Secondary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#ffe8a3"
+    },
+    "VariableID:56:9909": {
+      "name": "Background/Danger/Secondary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#fcb3ad"
+    },
+    "VariableID:58:8569": {
+      "name": "Title Page/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:58:8572": {
+      "name": "Title Page/Font Weight",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 700
+    },
+    "VariableID:58:8574": {
+      "name": "Title Page/Size Small",
+      "collection": "typography",
+      "type": "number",
+      "value": 40
+    },
+    "VariableID:611:26724": {
+      "name": "Gray/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:611:26725": {
+      "name": "Gray/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#e6e6e6"
+    },
+    "VariableID:611:26726": {
+      "name": "Gray/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "VariableID:611:26727": {
+      "name": "Gray/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#b3b3b3"
+    },
+    "VariableID:611:26728": {
+      "name": "Gray/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#757575"
+    },
+    "VariableID:611:26729": {
+      "name": "Gray/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#444444"
+    },
+    "VariableID:611:26730": {
+      "name": "Gray/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#383838"
+    },
+    "VariableID:611:26731": {
+      "name": "Gray/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:611:26732": {
+      "name": "Gray/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#1e1e1e"
+    },
+    "VariableID:611:26733": {
+      "name": "Gray/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#111111"
+    },
+    "VariableID:66:10176": {
+      "name": "Subtitle/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:66:10177": {
+      "name": "Subtitle/Size Base",
+      "collection": "typography",
+      "type": "number",
+      "value": 32
+    },
+    "VariableID:66:10178": {
+      "name": "Subtitle/Font Weight",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 400
+    },
+    "VariableID:66:10179": {
+      "name": "Body/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:66:10180": {
+      "name": "Body/Size Medium",
+      "collection": "typography",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:66:10181": {
+      "name": "Body/Font Weight Regular",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 400
+    },
+    "VariableID:66:10182": {
+      "name": "Code/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Roboto Mono"
+    },
+    "VariableID:66:10183": {
+      "name": "Code/Size Base",
+      "collection": "typography",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:66:10184": {
+      "name": "Code/Font Weight",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 400
+    },
+    "VariableID:66:10185": {
+      "name": "Heading/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:66:10186": {
+      "name": "Heading/Size Base",
+      "collection": "typography",
+      "type": "number",
+      "value": 24
+    },
+    "VariableID:66:10187": {
+      "name": "Heading/Font Weight",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 600
+    },
+    "VariableID:66:10188": {
+      "name": "Title Hero/Font Family",
+      "collection": "typography",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:66:10189": {
+      "name": "Title Hero/Size",
+      "collection": "typography",
+      "type": "number",
+      "value": 72
+    },
+    "VariableID:66:10190": {
+      "name": "Title Hero/Font Weight",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 700
+    },
+    "VariableID:66:10197": {
+      "name": "Title Page/Size Base",
+      "collection": "typography",
+      "type": "number",
+      "value": 48
+    },
+    "VariableID:66:10198": {
+      "name": "Title Page/Size Large",
+      "collection": "typography",
+      "type": "number",
+      "value": 64
+    },
+    "VariableID:66:10200": {
+      "name": "Weight Thin Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Thin Italic"
+    },
+    "VariableID:66:10201": {
+      "name": "Weight Extralight Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Extra Light Italic"
+    },
+    "VariableID:66:10202": {
+      "name": "Weight Medium Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Medium Italic"
+    },
+    "VariableID:66:10203": {
+      "name": "Weight Semibold Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Semi Bold Italic"
+    },
+    "VariableID:66:10204": {
+      "name": "Weight Extra Bold Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Extra Bold Italic"
+    },
+    "VariableID:66:10208": {
+      "name": "Weight Black Italic",
+      "collection": "typography_primitives",
+      "type": "unknown",
+      "value": "Black Italic"
+    },
+    "VariableID:66:10209": {
+      "name": "Subtitle/Size Large",
+      "collection": "typography",
+      "type": "number",
+      "value": 40
+    },
+    "VariableID:66:10210": {
+      "name": "Subtitle/Size Small",
+      "collection": "typography",
+      "type": "number",
+      "value": 24
+    },
+    "VariableID:66:10211": {
+      "name": "Heading/Size Large",
+      "collection": "typography",
+      "type": "number",
+      "value": 32
+    },
+    "VariableID:66:10212": {
+      "name": "Heading/Size Small",
+      "collection": "typography",
+      "type": "number",
+      "value": 20
+    },
+    "VariableID:66:10215": {
+      "name": "Body/Size Large",
+      "collection": "typography",
+      "type": "number",
+      "value": 20
+    },
+    "VariableID:66:10216": {
+      "name": "Body/Size Small",
+      "collection": "typography",
+      "type": "number",
+      "value": 14
+    },
+    "VariableID:66:10217": {
+      "name": "Code/Size Large",
+      "collection": "typography",
+      "type": "number",
+      "value": 20
+    },
+    "VariableID:66:10218": {
+      "name": "Code/Size Small",
+      "collection": "typography",
+      "type": "number",
+      "value": 14
+    },
+    "VariableID:66:14844": {
+      "name": "Body/Font Weight Strong",
+      "collection": "typography",
+      "type": "fontWeight",
+      "value": 600
+    },
+    "VariableID:66:14846": {
+      "name": "Body/Font Style Italic",
+      "collection": "typography",
+      "type": "unknown",
+      "value": "Italic"
+    },
+    "VariableID:72:10153": {
+      "name": "Text/Utilities/Text On Measurement",
+      "collection": "color",
+      "type": "color",
+      "value": "#8a226f"
+    },
+    "VariableID:72:10154": {
+      "name": "Border/Utilities/Measurement",
+      "collection": "color",
+      "type": "color",
+      "value": "#f19edc"
+    },
+    "VariableID:72:9197": {
+      "name": "Background/Utilities/Measurement",
+      "collection": "color",
+      "type": "color",
+      "value": "#fae1fa"
+    },
+    "VariableID:7753:3701": {
+      "name": "Background/Utilities/Scrim",
+      "collection": "color",
+      "type": "color",
+      "value": "#ffffffcc"
+    },
+    "VariableID:7786:36548": {
+      "name": "Background/Utilities/Overlay",
+      "collection": "color",
+      "type": "color",
+      "value": "#00000080"
+    },
+    "VariableID:9:11180": {
+      "name": "Weight Thin",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 100
+    },
+    "VariableID:9:11181": {
+      "name": "Weight Extra Light",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 200
+    },
+    "VariableID:9:11182": {
+      "name": "Weight Light",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 300
+    },
+    "VariableID:9:11183": {
+      "name": "Weight Regular",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 400
+    },
+    "VariableID:9:11184": {
+      "name": "Weight Medium",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 500
+    },
+    "VariableID:9:11185": {
+      "name": "Weight Semibold",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 600
+    },
+    "VariableID:9:11186": {
+      "name": "Weight Bold",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 700
+    },
+    "VariableID:9:11187": {
+      "name": "Weight Extra Bold",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 800
+    },
+    "VariableID:9:11188": {
+      "name": "Weight Black",
+      "collection": "typography_primitives",
+      "type": "fontWeight",
+      "value": 900
+    },
+    "VariableID:9:11189": {
+      "name": "Scale 10",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 72
+    },
+    "VariableID:9:11190": {
+      "name": "Scale 09",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 64
+    },
+    "VariableID:9:11191": {
+      "name": "Scale 08",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 48
+    },
+    "VariableID:9:11192": {
+      "name": "Scale 07",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 40
+    },
+    "VariableID:9:11193": {
+      "name": "Scale 06",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 32
+    },
+    "VariableID:9:11194": {
+      "name": "Scale 05",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 24
+    },
+    "VariableID:9:11195": {
+      "name": "Scale 04",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 20
+    },
+    "VariableID:9:11196": {
+      "name": "Scale 03",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:9:11197": {
+      "name": "Scale 02",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 14
+    },
+    "VariableID:9:11198": {
+      "name": "Scale 01",
+      "collection": "typography_primitives",
+      "type": "number",
+      "value": 12
+    },
+    "VariableID:9:11199": {
+      "name": "Family Sans",
+      "collection": "typography_primitives",
+      "type": "fontFamily",
+      "value": "Inter"
+    },
+    "VariableID:9:11200": {
+      "name": "Family Serif",
+      "collection": "typography_primitives",
+      "type": "fontFamily",
+      "value": "Noto Serif"
+    },
+    "VariableID:9:11201": {
+      "name": "Family Mono",
+      "collection": "typography_primitives",
+      "type": "fontFamily",
+      "value": "Roboto Mono"
+    },
+    "VariableID:9:11219": {
+      "name": "Device Width",
+      "collection": "responsive",
+      "type": "number",
+      "value": 1200
+    },
+    "VariableID:9:11224": {
+      "name": "Root Font Size",
+      "collection": "responsive",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:9:11234": {
+      "name": "Black/100",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0d0d"
+    },
+    "VariableID:9:11235": {
+      "name": "Black/200",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0d1a"
+    },
+    "VariableID:9:11236": {
+      "name": "Black/300",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0d33"
+    },
+    "VariableID:9:11237": {
+      "name": "Black/400",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0d66"
+    },
+    "VariableID:9:11238": {
+      "name": "Black/500",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0db2"
+    },
+    "VariableID:9:11239": {
+      "name": "Black/600",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0dcc"
+    },
+    "VariableID:9:11240": {
+      "name": "Black/700",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0dd9"
+    },
+    "VariableID:9:11241": {
+      "name": "Black/800",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0de5"
+    },
+    "VariableID:9:11242": {
+      "name": "Black/900",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0df2"
+    },
+    "VariableID:9:11243": {
+      "name": "Black/1000",
+      "collection": "color_primitives",
+      "type": "color",
+      "value": "#0c0c0d"
+    },
+    "VariableID:9:11258": {
+      "name": "Space/100",
+      "collection": "size",
+      "type": "number",
+      "value": 4
+    },
+    "VariableID:9:11259": {
+      "name": "Space/200",
+      "collection": "size",
+      "type": "number",
+      "value": 8
+    },
+    "VariableID:9:11260": {
+      "name": "Space/300",
+      "collection": "size",
+      "type": "number",
+      "value": 12
+    },
+    "VariableID:9:11261": {
+      "name": "Space/400",
+      "collection": "size",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:9:11262": {
+      "name": "Space/600",
+      "collection": "size",
+      "type": "number",
+      "value": 24
+    },
+    "VariableID:9:11263": {
+      "name": "Space/Negative 100",
+      "collection": "size",
+      "type": "number",
+      "value": -4
+    },
+    "VariableID:9:11264": {
+      "name": "Space/Negative 200",
+      "collection": "size",
+      "type": "number",
+      "value": -8
+    },
+    "VariableID:9:11265": {
+      "name": "Space/Negative 300",
+      "collection": "size",
+      "type": "number",
+      "value": -12
+    },
+    "VariableID:9:11266": {
+      "name": "Space/Negative 400",
+      "collection": "size",
+      "type": "number",
+      "value": -16
+    },
+    "VariableID:9:11267": {
+      "name": "Space/Negative 600",
+      "collection": "size",
+      "type": "number",
+      "value": -24
+    },
+    "VariableID:9:11274": {
+      "name": "Radius/100",
+      "collection": "size",
+      "type": "number",
+      "value": 4
+    },
+    "VariableID:9:11275": {
+      "name": "Radius/200",
+      "collection": "size",
+      "type": "number",
+      "value": 8
+    },
+    "VariableID:9:11277": {
+      "name": "Radius/400",
+      "collection": "size",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:9:11280": {
+      "name": "Depth/0",
+      "collection": "size",
+      "type": "number",
+      "value": 0
+    },
+    "VariableID:9:11281": {
+      "name": "Depth/025",
+      "collection": "size",
+      "type": "number",
+      "value": 1
+    },
+    "VariableID:9:11282": {
+      "name": "Depth/100",
+      "collection": "size",
+      "type": "number",
+      "value": 4
+    },
+    "VariableID:9:11283": {
+      "name": "Depth/200",
+      "collection": "size",
+      "type": "number",
+      "value": 8
+    },
+    "VariableID:9:11284": {
+      "name": "Depth/400",
+      "collection": "size",
+      "type": "number",
+      "value": 16
+    },
+    "VariableID:9:11285": {
+      "name": "Depth/800",
+      "collection": "size",
+      "type": "number",
+      "value": 32
+    },
+    "VariableID:9:11286": {
+      "name": "Depth/1200",
+      "collection": "size",
+      "type": "number",
+      "value": 48
+    },
+    "VariableID:9:11287": {
+      "name": "Depth/Negative 025",
+      "collection": "size",
+      "type": "number",
+      "value": -1
+    },
+    "VariableID:9:11288": {
+      "name": "Depth/Negative 100",
+      "collection": "size",
+      "type": "number",
+      "value": -4
+    },
+    "VariableID:9:11289": {
+      "name": "Depth/Negative 200",
+      "collection": "size",
+      "type": "number",
+      "value": -8
+    },
+    "VariableID:9:11290": {
+      "name": "Depth/Negative 400",
+      "collection": "size",
+      "type": "number",
+      "value": -16
+    },
+    "VariableID:9:11291": {
+      "name": "Depth/Negative 800",
+      "collection": "size",
+      "type": "number",
+      "value": -32
+    },
+    "VariableID:9:11292": {
+      "name": "Depth/Negative 1200",
+      "collection": "size",
+      "type": "number",
+      "value": -48
+    },
+    "VariableID:9643:10770": {
+      "name": "Text/Utilities/Text On Overlay",
+      "collection": "color",
+      "type": "color",
+      "value": "#0c0c0d"
+    },
+    "VariableID:9670:11772": {
+      "name": "Background/Brand/Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "VariableID:9670:11773": {
+      "name": "Text/Brand/On Brand Tertiary",
+      "collection": "color",
+      "type": "color",
+      "value": "#2c2c2c"
+    },
+    "VariableID:9670:12886": {
+      "name": "Background/Brand/Tertiary Hover",
+      "collection": "color",
+      "type": "color",
+      "value": "#e6e6e6"
+    }
+  }
+}
