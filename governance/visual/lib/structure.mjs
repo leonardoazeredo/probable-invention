@@ -60,9 +60,9 @@ export function trimFigmaNode(node, origin = node.absoluteBoundingBox) {
   }
   if (node.boundVariables && Object.keys(node.boundVariables).length) {
     // Variable ids per property; names are resolved separately (tokens map).
-    out.variables = Object.fromEntries(
-      Object.entries(node.boundVariables).map(([k, v]) => [k, Array.isArray(v) ? v.map((x) => x.id) : v.id]),
-    );
+    const ids = (v) =>
+      Array.isArray(v) ? v.map(ids) : v?.id ? v.id : Object.fromEntries(Object.entries(v ?? {}).map(([k, x]) => [k, ids(x)]));
+    out.variables = ids(node.boundVariables);
   }
   if (node.children?.length) out.children = node.children.map((c) => trimFigmaNode(c, origin));
   return out;
@@ -161,6 +161,14 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
     });
   const px = (n) => `${round(n, 1)}px`;
   const resolved = [];
+  const parents = new Map();
+  (function index(n) {
+    for (const c of n.children ?? []) {
+      parents.set(c, n);
+      index(c);
+    }
+  })(snapshot);
+  const byNode = new Map();
 
   for (const entry of map) {
     const node = findNode(snapshot, entry.figma);
@@ -175,7 +183,19 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
       continue;
     }
     resolved.push({ entry, node, el, label });
+    byNode.set(node, el);
     checked++;
+  }
+
+  for (const { entry, node, el, label } of resolved) {
+    // Positions are compared relative to the nearest mapped ancestor, so one
+    // wrong padding is reported once, not again for everything inside it.
+    let anc = parents.get(node);
+    while (anc && !byNode.has(anc)) anc = parents.get(anc);
+    const [fx, fy] = anc ? [anc.box.x, anc.box.y] : [0, 0];
+    const [ex, ey] = anc ? [byNode.get(anc).box.x, byNode.get(anc).box.y] : [0, 0];
+    const rel = { el: { ...el.box, x: el.box.x - ex, y: el.box.y - ey }, node: { ...node.box, x: node.box.x - fx, y: node.box.y - fy } };
+    const where = anc ? ` (within ${resolved.find((r) => r.node === anc).label})` : '';
 
     const isText = node.type === 'TEXT';
     const boxTol = isText ? tol.textBox : tol.box;
@@ -186,7 +206,9 @@ export function compareStructure(snapshot, measured, map, tolerance = {}) {
       ['height', 'height'],
       ...(isText ? [] : [['x', 'left'], ['width', 'width']]),
     ]) {
-      if (Math.abs(el.box[k] - node.box[k]) > boxTol) add(label, prop, px(el.box[k]), px(node.box[k]));
+      if (Math.abs(rel.el[k] - rel.node[k]) > boxTol) {
+        add(label, k === 'x' || k === 'y' ? `${prop}${where}` : prop, px(rel.el[k]), px(rel.node[k]));
+      }
     }
 
     if (isText) {

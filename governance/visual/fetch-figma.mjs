@@ -50,7 +50,7 @@ if (!node) throw new Error(`node ${nodeId} not found in ${fileKey}`);
 const baselinePath = join(HERE, scene.baseline);
 const snapshotPath = baselinePath.replace(/\.png$/, '.figma.json');
 const snapshot = {
-  $comment: 'Trimmed Figma node tree for the structural check. Written by fetch-figma.mjs from the Figma REST API; do not edit by hand.',
+  $comment: 'Trimmed Figma node tree for the structural check, from the Figma REST API. Do not edit by hand; refresh with `pnpm visual:fetch --scene <id> --structure-only`.',
   scene: scene.id,
   fileKey,
   nodeId,
