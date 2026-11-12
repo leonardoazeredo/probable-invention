@@ -19,6 +19,7 @@ import { PNG } from 'pngjs';
 import { compareImages, readPng, writePng } from './lib/compare.mjs';
 import { bundleScene, launchBrowser, renderScene } from './lib/render.mjs';
 import { sceneReport } from './lib/report.mjs';
+import { compareStructure } from './lib/structure.mjs';
 
 const { values } = parseArgs({
   options: {
@@ -84,14 +85,26 @@ try {
       failures.push(`${scene.id}: reference ${scene.baseline} is missing on the base branch.`);
       continue;
     }
+    // Structural check inputs: the base branch's node snapshot and layer map.
+    const structure = scene.structure;
+    const snapshotPath = baselinePath.replace(/\.png$/, '.figma.json');
+    const snapshot = structure && existsSync(snapshotPath) ? JSON.parse(readFileSync(snapshotPath, 'utf8')).root : null;
+    if (structure && !snapshot) {
+      notes.push(
+        `${scene.id}: no Figma node snapshot (${scene.baseline.replace(/\.png$/, '.figma.json')}), so the structural check didn't run. Fetch it with \`pnpm visual:fetch --scene ${scene.id} --structure-only\`.`,
+      );
+    }
+    const selectors = snapshot ? structure.map.map((m) => m.selector) : [];
     let actual;
+    let measured = {};
     try {
       // Render twice: if the two renders differ, the environment isn't
       // deterministic and no diff against Figma can be trusted.
-      const first = await renderScene({ browser, trusted: TRUSTED, scene, code: bundle.code });
+      const first = await renderScene({ browser, trusted: TRUSTED, scene, code: bundle.code, selectors });
       const second = await renderScene({ browser, trusted: TRUSTED, scene, code: bundle.code });
-      actual = PNG.sync.read(first);
-      const again = PNG.sync.read(second);
+      actual = PNG.sync.read(first.png);
+      measured = first.measured;
+      const again = PNG.sync.read(second.png);
       if (actual.width !== again.width || actual.height !== again.height || !actual.data.equals(again.data)) {
         row.status = 'FAIL';
         row.detail = 'render not deterministic';
@@ -132,8 +145,15 @@ try {
     const sizeFail = sizeDelta > maxSizeDelta;
     const ratioFail = r.diffRatio > scene.maxDiffRatio;
 
-    // Findings, most actionable first.
+    // Findings, most actionable first: named property mismatches from the
+    // structural check, then what the pixels say.
     const findings = [];
+    let structural = null;
+    if (snapshot) {
+      structural = compareStructure(snapshot, measured, structure.map, structure.tolerance);
+      for (const e of structural.errors) notes.push(`${scene.id}: ${e}`);
+      findings.push(...structural.findings.map((f) => f.message));
+    }
     if (!r.sizeMatches) {
       const parts = [];
       if (aw !== ew) parts.push(`${Math.abs(aw - ew)}px ${aw < ew ? 'narrower' : 'wider'}`);
@@ -168,6 +188,14 @@ try {
     row.detail = `${pct(r.diffRatio)} of overlap differs (limit ${pct(scene.maxDiffRatio)}); ${
       r.sizeMatches ? `${aw}x${ah}` : `size ${aw}x${ah} vs Figma ${ew}x${eh}`
     }`;
+    const enforceStructure = structure?.mode === 'enforce';
+    const structureFail = Boolean(structural?.findings.length) && enforceStructure;
+    if (structural) {
+      row.structural = structural.findings;
+      row.detail += `; ${structural.findings.length} structural mismatch(es) in ${structural.checked} layers${
+        enforceStructure ? '' : ' (report only)'
+      }`;
+    }
     const evidence = `See ${files.report} in the visual-diff artifact.`;
     if (sizeFail) {
       row.status = 'FAIL';
@@ -181,8 +209,18 @@ try {
           scene.figma?.url ? ` (${scene.figma.url})` : ''
         }. ${evidence}\n${findings.map((f) => `- ${f}`).join('\n')}`,
       );
+    } else if (structureFail) {
+      row.status = 'FAIL';
+      failures.push(
+        `${scene.id}: ${structural.findings.length} property mismatch(es) against the Figma layers. ${evidence}\n${findings.map((f) => `- ${f}`).join('\n')}`,
+      );
     } else {
       row.status = 'pass';
+      if (structural?.findings.length) {
+        notes.push(
+          `${scene.id}: the structural check (report only) found ${structural.findings.length} mismatch(es):\n${structural.findings.map((f) => `- ${f.message}`).join('\n')}`,
+        );
+      }
     }
     writeFileSync(join(OUT, files.report), sceneReport({ scene, status: row.status, findings, result: r, files }));
   }
@@ -199,7 +237,7 @@ const summary = [
   '| --- | --- | --- |',
   ...rows.map((r) => `| ${r.id} | ${r.status} | ${r.detail} |`),
   '',
-  ...(notes.length ? ['### Notes', ...notes.map((n) => `- ${n}`)] : []),
+  ...(notes.length ? ['### Notes', ...notes.map((n) => `- ${n.replace(/\n/g, '\n  ')}`)] : []),
 ].join('\n');
 console.log(summary);
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');

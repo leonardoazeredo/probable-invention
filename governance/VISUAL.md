@@ -42,6 +42,37 @@ only after a code owner approves and merges them (CODEOWNERS on `governance/`).
    Figma and render side by side, an onion-skin overlay, the diffs and a region
    table) plus the raw PNGs.
 
+## Structural check
+
+The pixel diff says *where* the screen differs. The structural check says
+*what*: it compares the browser's layout with the Figma frame's layer data and
+names the property, for example `Subtitle: text colour #1e1e1e, Figma #757575`
+or `Buttons: gap between Secondary button and Primary button 12px, Figma 16px`.
+There's no rasteriser noise, so a few-pixel nudge that the pixel ratio misses
+is caught exactly.
+
+- **Figma side:** `baselines/<scene>.figma.json`, a trimmed node tree (boxes
+  relative to the frame, auto-layout, fills, strokes, radius, type, bound
+  variable ids). `pnpm visual:fetch --scene <id> --structure-only` writes it
+  from the Figma REST API; `--verify` checks it is still current.
+- **Map:** the scene's `structure.map` in `scenes.json` pairs Figma layers with
+  CSS selectors: `{ "figma": "Text/Title", "selector": "h1" }`. A layer is a
+  path of layer names from the frame (`Button#2` is the second sibling called
+  Button), a node id like `2143:15060`, or `""` for the frame itself
+  (selector `:scope`). The map lives on the base branch, so a PR can't remap
+  layers to avoid the check.
+- **Compared:** top, height, left and width (±1px; text: top and height only,
+  ±2px, since text width depends on the rasteriser), background, border width
+  and colour, corner radius, text colour, font family, size and weight, line
+  height (±1px), letter spacing, and the gaps between mapped children of
+  auto-layout frames. Colours match within 2/255 per channel. Override with
+  `structure.tolerance`.
+- **Mode:** `"report"` lists mismatches in the summary and report without
+  failing; `"enforce"` fails the scene on any mismatch. Start a new scene in
+  `report`, then switch to `enforce` once the map is right.
+- **Not covered:** elements that aren't mapped. An unexpected extra element is
+  still caught by the pixel diff.
+
 A scene is skipped when the PR changes none of the files its bundle imports
 (esbuild's metafile lists them) and no `package.json`, lockfile or tsconfig.
 That keeps an unrelated PR from failing because someone else's screen drifted.
