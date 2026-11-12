@@ -19,12 +19,28 @@ only after a code owner approves and merges them (CODEOWNERS on `governance/`).
    config; the PR's tsconfig is ignored), and no PR script runs on the runner.
 2. **Render** the bundle in headless Chromium at the frame's size, from an
    inline page with every network request refused. Inter comes from the base
-   branch's `@fontsource/inter`, so text doesn't depend on runner fonts.
-3. **Diff** the root element's screenshot with pixelmatch. Size differences
-   count as drift: the missing area is treated as changed pixels.
+   branch's `@fontsource/inter`, so text doesn't depend on runner fonts. The job
+   runs in the `mcr.microsoft.com/playwright` image matching the Playwright
+   version in `package.json` (a governance test keeps them in step), so
+   Chromium and system libraries don't drift with the runner. Each scene is
+   rendered twice; if the two renders differ, the scene fails as an
+   environment problem rather than being diffed.
+3. **Diff** the root element's screenshot with pixelmatch. The render and the
+   frame are placed on one canvas, top-left or centred (the scene's `align`),
+   and only the area both cover is diffed. A size mismatch is reported as its
+   own finding instead of inflating the diff ratio.
 4. **Fail** when the rendered size is more than `maxSizeDelta` px off the
-   frame, or the share of differing pixels exceeds `maxDiffRatio`. The rendered, reference and diff PNGs are uploaded as the
-   `visual-diff` artifact on every run.
+   frame, or the share of differing pixels in the overlap exceeds
+   `maxDiffRatio`.
+5. **Report** what differs, most actionable first: the size difference, the
+   most common colour on each side (usually the background), the diff ratio,
+   and the largest changed regions in Figma frame coordinates. When the
+   backgrounds differ, which flags every pixel, the report also diffs with the
+   render's background repainted in Figma's colour, so content changes still
+   show. That second diff is for locating problems only; pass/fail uses the
+   real diff. The `visual-diff` artifact holds `<scene>.report.html` (findings,
+   Figma and render side by side, an onion-skin overlay, the diffs and a region
+   table) plus the raw PNGs.
 
 A scene is skipped when the PR changes none of the files its bundle imports
 (esbuild's metafile lists them) and no `package.json`, lockfile or tsconfig.

@@ -18,6 +18,7 @@ import { parseArgs } from 'node:util';
 import { PNG } from 'pngjs';
 import { compareImages, readPng, writePng } from './lib/compare.mjs';
 import { bundleScene, launchBrowser, renderScene } from './lib/render.mjs';
+import { sceneReport } from './lib/report.mjs';
 
 const { values } = parseArgs({
   options: {
@@ -85,7 +86,22 @@ try {
     }
     let actual;
     try {
-      actual = PNG.sync.read(await renderScene({ browser, trusted: TRUSTED, scene, code: bundle.code }));
+      // Render twice: if the two renders differ, the environment isn't
+      // deterministic and no diff against Figma can be trusted.
+      const first = await renderScene({ browser, trusted: TRUSTED, scene, code: bundle.code });
+      const second = await renderScene({ browser, trusted: TRUSTED, scene, code: bundle.code });
+      actual = PNG.sync.read(first);
+      const again = PNG.sync.read(second);
+      if (actual.width !== again.width || actual.height !== again.height || !actual.data.equals(again.data)) {
+        row.status = 'FAIL';
+        row.detail = 'render not deterministic';
+        failures.push(
+          `${scene.id}: two renders of the same code differed, so the result can't be trusted. This is an environment problem (fonts, animation, async content), not necessarily a design drift. Re-run the job; if it repeats, look for animations or content that loads after first paint.`,
+        );
+        writePng(join(OUT, `${scene.id}.actual.png`), actual);
+        writePng(join(OUT, `${scene.id}.actual-2.png`), again);
+        continue;
+      }
     } catch (e) {
       row.status = 'FAIL';
       row.detail = 'render failed';
@@ -93,34 +109,82 @@ try {
       continue;
     }
     const expected = readPng(baselinePath);
-    const r = compareImages(expected, actual, { threshold: scene.pixelThreshold });
-    writePng(join(OUT, `${scene.id}.actual.png`), actual);
-    writePng(join(OUT, `${scene.id}.expected.png`), expected);
-    writePng(join(OUT, `${scene.id}.diff.png`), r.diff);
+    const r = compareImages(expected, actual, { threshold: scene.pixelThreshold, align: scene.align });
+    const files = {
+      actual: `${scene.id}.actual.png`,
+      expected: `${scene.id}.expected.png`,
+      diff: `${scene.id}.diff.png`,
+      report: `${scene.id}.report.html`,
+    };
+    writePng(join(OUT, files.actual), actual);
+    writePng(join(OUT, files.expected), expected);
+    writePng(join(OUT, files.diff), r.diff);
+    if (r.content) {
+      files.contentDiff = `${scene.id}.content-diff.png`;
+      writePng(join(OUT, files.contentDiff), r.content.diff);
+    }
+
     const pct = (x) => `${(x * 100).toFixed(2)}%`;
-    const size = r.sizeMatches ? `${r.width}x${r.height}` : `size ${r.actualSize.join('x')} vs Figma ${r.expectedSize.join('x')}`;
-    row.detail = `${pct(r.diffRatio)} of pixels differ (limit ${pct(scene.maxDiffRatio)}); ${size}`;
-    row.diffRatio = r.diffRatio;
-    const sizeDelta = Math.max(
-      Math.abs(r.actualSize[0] - r.expectedSize[0]),
-      Math.abs(r.actualSize[1] - r.expectedSize[1]),
-    );
+    const [ew, eh] = r.expectedSize;
+    const [aw, ah] = r.actualSize;
+    const sizeDelta = Math.max(Math.abs(aw - ew), Math.abs(ah - eh));
     const maxSizeDelta = scene.maxSizeDelta ?? 0;
-    if (sizeDelta > maxSizeDelta) {
-      row.status = 'FAIL';
-      failures.push(
-        `${scene.id}: rendered size ${r.actualSize.join('x')} is ${sizeDelta}px off the Figma frame's ${r.expectedSize.join('x')} (limit ${maxSizeDelta}px); ${pct(r.diffRatio)} of pixels differ. See the ${scene.id}.diff.png artifact.`,
+    const sizeFail = sizeDelta > maxSizeDelta;
+    const ratioFail = r.diffRatio > scene.maxDiffRatio;
+
+    // Findings, most actionable first.
+    const findings = [];
+    if (!r.sizeMatches) {
+      const parts = [];
+      if (aw !== ew) parts.push(`${Math.abs(aw - ew)}px ${aw < ew ? 'narrower' : 'wider'}`);
+      if (ah !== eh) parts.push(`${Math.abs(ah - eh)}px ${ah < eh ? 'shorter' : 'taller'}`);
+      findings.push(`Size: render ${aw}x${ah}, Figma ${ew}x${eh} (${parts.join(', ')}; limit ${maxSizeDelta}px). Check padding, gaps and type sizes.`);
+    }
+    const { expected: de, actual: da } = r.dominant;
+    if (de.colour !== da.colour) {
+      findings.push(
+        `Most common colour (usually the background): render ${da.colour} (${pct(da.share)} of pixels), Figma ${de.colour} (${pct(de.share)}).`,
       );
-    } else if (r.diffRatio > scene.maxDiffRatio) {
+    }
+    findings.push(
+      `${pct(r.diffRatio)} of the area both images cover differs (limit ${pct(scene.maxDiffRatio)}), compared ${r.align} aligned.`,
+    );
+    const where = (regions) =>
+      regions
+        .slice(0, 3)
+        .map((g) => `x ${g.x}-${g.x + g.width}, y ${g.y}-${g.y + g.height} (${g.pixels}px)`)
+        .join('; ');
+    if (r.content) {
+      findings.push(
+        `With the background difference set aside, ${pct(r.content.diffRatio)} differs.${
+          r.content.regions.length ? ` Largest changed regions, in Figma frame coordinates: ${where(r.content.regions)}.` : ''
+        }`,
+      );
+    } else if (r.regions.length) {
+      findings.push(`Largest changed regions, in Figma frame coordinates: ${where(r.regions)}.`);
+    }
+
+    row.diffRatio = r.diffRatio;
+    row.detail = `${pct(r.diffRatio)} of overlap differs (limit ${pct(scene.maxDiffRatio)}); ${
+      r.sizeMatches ? `${aw}x${ah}` : `size ${aw}x${ah} vs Figma ${ew}x${eh}`
+    }`;
+    const evidence = `See ${files.report} in the visual-diff artifact.`;
+    if (sizeFail) {
       row.status = 'FAIL';
       failures.push(
-        `${scene.id}: ${row.detail}. The rendered ${scene.export} has drifted from the Figma frame${
+        `${scene.id}: rendered size ${aw}x${ah} is ${sizeDelta}px off the Figma frame's ${ew}x${eh} (limit ${maxSizeDelta}px). ${evidence}\n${findings.map((f) => `- ${f}`).join('\n')}`,
+      );
+    } else if (ratioFail) {
+      row.status = 'FAIL';
+      failures.push(
+        `${scene.id}: the rendered ${scene.export} has drifted from the Figma frame${
           scene.figma?.url ? ` (${scene.figma.url})` : ''
-        }. See the ${scene.id}.diff.png artifact (magenta = missing area, red = changed pixels).`,
+        }. ${evidence}\n${findings.map((f) => `- ${f}`).join('\n')}`,
       );
     } else {
       row.status = 'pass';
     }
+    writeFileSync(join(OUT, files.report), sceneReport({ scene, status: row.status, findings, result: r, files }));
   }
 } finally {
   await browser.close();

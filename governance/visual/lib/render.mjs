@@ -42,6 +42,9 @@ export async function bundleScene({ trusted, head, scene }) {
       react: require.resolve('react', { paths: [webModules] }).replace(/[/\\]index\.js$/, ''),
       'react-dom': require.resolve('react-dom', { paths: [webModules] }).replace(/[/\\]index\.js$/, ''),
     },
+    // Metafile paths are relative to absWorkingDir; anchor them to the PR checkout
+    // so they match the PR's changed-file list whatever the process cwd is.
+    absWorkingDir: resolve(head),
     metafile: true,
     logLevel: 'silent',
   });
@@ -64,7 +67,14 @@ function fontFaces(trusted, fonts = []) {
 export async function launchBrowser() {
   return chromium.launch({
     executablePath: process.env.VISUAL_CHROMIUM_PATH || undefined,
-    args: ['--host-resolver-rules=MAP * ~NOTFOUND', '--font-render-hinting=none', '--disable-lcd-text'],
+    args: [
+      '--host-resolver-rules=MAP * ~NOTFOUND',
+      '--font-render-hinting=none',
+      '--disable-lcd-text',
+      // Same colour pipeline and rasteriser on every runner.
+      '--force-color-profile=srgb',
+      '--disable-gpu',
+    ],
   });
 }
 

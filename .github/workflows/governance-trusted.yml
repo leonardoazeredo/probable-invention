@@ -65,8 +65,18 @@ jobs:
   # inside a network-isolated headless browser, never on the runner itself.
   visual:
     name: governance/visual
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    # Pinned render environment: the official Playwright image for the exact
+    # Playwright version in package.json (a governance test checks they match),
+    # so Chromium, system libraries and fonts don't drift with the runner image.
+    container:
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
     steps:
+      - name: Install git (checkout needs it for history; the image may not ship it)
+        run: |
+          command -v git >/dev/null || (apt-get update -qq && apt-get install -y -qq --no-install-recommends git)
+          git config --global --add safe.directory '*'
+
       - name: Check out base branch (trusted tooling and references)
         uses: actions/checkout@v4
         with:
@@ -90,11 +100,9 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install base-branch dependencies and Chromium
+      - name: Install base-branch dependencies (Chromium comes with the container)
         working-directory: trusted
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm exec playwright install --with-deps chromium
+        run: pnpm install --frozen-lockfile
 
       - name: Fetch base into PR clone
         working-directory: head
