@@ -52,7 +52,6 @@ const snapshotPath = baselinePath.replace(/\.png$/, '.figma.json');
 const snapshot = {
   $comment: 'Trimmed Figma node tree for the structural check, from the Figma REST API. Do not edit by hand; refresh with `pnpm visual:fetch --scene <id> --structure-only`.',
   scene: scene.id,
-  fileKey,
   nodeId,
   version: file.version,
   lastModified: file.lastModified,

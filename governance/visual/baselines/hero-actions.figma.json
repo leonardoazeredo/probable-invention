@@ -1,7 +1,6 @@
 {
   "$comment": "Trimmed Figma node tree for the structural check, from the Figma REST API. Do not edit by hand; refresh with `pnpm visual:fetch --scene <id> --structure-only`.",
   "scene": "hero-actions",
-  "fileKey": "MPz5qGH25seQpIonTcHUZU",
   "nodeId": "2143:15053",
   "version": "2420769579160087346",
   "lastModified": "2026-11-12T01:23:10Z",
