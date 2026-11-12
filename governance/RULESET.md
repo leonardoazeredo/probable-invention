@@ -18,13 +18,13 @@ What it sets on the default branch:
 | Require review from code owners | Makes [CODEOWNERS](../.github/CODEOWNERS) a gate instead of a suggestion |
 | Dismiss stale approvals on push | Approve-then-push can't carry an old approval forward |
 | Require approval of the most recent push | Whoever pushed last can't be the only approver |
-| Required checks `governance/trusted` and `build-and-test`, pinned to GitHub Actions (integration 15368) | A third-party app can't post a green status under those names |
+| Required checks `governance/trusted`, `governance/visual` and `build-and-test`, pinned to GitHub Actions (integration 15368) | A third-party app can't post a green status under those names |
 | No bypass actors | Nobody is exempt, including admins acting through the UI |
 | Block deletion and force-push | History can't be rewritten under the gates |
 
-`governance/trusted` only runs once `.github/workflows/governance-trusted.yml`
+`governance/trusted` and `governance/visual` only run once `.github/workflows/governance-trusted.yml`
 is on `main` (it uses `pull_request_target`, which always runs the base-branch
-copy). So the PR that introduces it can't be judged by it. Merge that PR first,
+copy). So the PR that introduces a check can't be judged by it. Merge that PR first,
 then apply the ruleset.
 
 ## The identity decision (blocking, not engineering)

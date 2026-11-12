@@ -14,12 +14,19 @@
     "ratchet": "node governance/ratchet.mjs",
     "test:governance": "node --test --test-concurrency=4 \"governance/tests/*.test.mjs\"",
     "storybook": "pnpm --filter @pi/design-system storybook",
-    "test:a11y": "pnpm --filter @pi/design-system test:a11y"
+    "test:a11y": "pnpm --filter @pi/design-system test:a11y",
+    "visual": "node governance/visual/visual-check.mjs --trusted . --head . --all --out .governance-tmp/visual",
+    "visual:fetch": "node governance/visual/fetch-figma.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",
+    "@fontsource/inter": "^5.3.0",
+    "esbuild": "0.28.2",
     "eslint": "^10.6.0",
     "globals": "^17.0.0",
+    "pixelmatch": "^8.0.0",
+    "playwright": "1.65.0",
+    "pngjs": "^7.0.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.60.0"
   }

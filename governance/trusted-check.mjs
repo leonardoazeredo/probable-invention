@@ -22,6 +22,8 @@ const { values } = parseArgs({
 const TRUSTED = resolve(values.trusted ?? '.');
 const HEAD = resolve(values.head ?? '.');
 const CHECK_NAME = 'governance/trusted';
+// Every required check this workflow produces; a PR workflow may declare none of them.
+const REQUIRED_CHECKS_RE = /governance\/(?:trusted|visual)|governance-trusted/;
 const DS = 'packages/design-system';
 
 // Files the PR may change only with code-owner approval, and which are always
@@ -54,13 +56,13 @@ if (protectedChanges.length) {
 
 // ---- 2. impostor guard -------------------------------------------------------
 // A PR-added workflow can emit a check with the same name under the same
-// GitHub Actions app identity. Refuse any workflow change that declares it.
+// GitHub Actions app identity. Refuse any workflow change that declares one.
 for (const f of changedFiles.filter((f) => /^\.github\/workflows\/.+\.ya?ml$/.test(f))) {
   const p = join(HEAD, f);
   if (!existsSync(p)) continue;
   const text = readFileSync(p, 'utf8');
-  if (f !== '.github/workflows/governance-trusted.yml' && /governance\/trusted|governance-trusted/.test(text)) {
-    failures.push(`${f} declares a job that could impersonate the required "${CHECK_NAME}" check.`);
+  if (f !== '.github/workflows/governance-trusted.yml' && REQUIRED_CHECKS_RE.test(text)) {
+    failures.push(`${f} declares a job that could impersonate a required governance check (governance/trusted or governance/visual).`);
   }
 }
 

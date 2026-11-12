@@ -19,6 +19,7 @@ instrumented** until [CANARY.md](CANARY.md) has results.
 | Feature boundary: no styling/headless-UI libraries, no deep imports, no native primitive elements, widget roles, `as=` onto primitives, `createElement`/`styled` of primitives, positive tabIndex, raw colours | `eslint.config.js` | Preventive | Instrumented | _ | _ |
 | Debt ratchet: suppressions file + inline disables + inline config + severity downgrades + ignored files + a11y opt-outs, tree-wide per rule, base vs head, budget from merge base, raises only in budget-only PRs, paydowns must lock in | `governance/lib/{scan,ratchet}.mjs`, `governance/budget.json` | Preventive | Instrumented | _ | _ |
 | Impostor guard: PR workflows may not declare the required check's name | `governance/trusted-check.mjs` | Preventive | Instrumented | _ | _ |
+| Figma fidelity (`governance/visual`): PR screens rendered with base-branch tooling in a network-isolated browser and pixel-diffed against base-branch Figma references; fails above the scene's threshold | `governance/visual/`, `.github/workflows/governance-trusted.yml`, [VISUAL.md](VISUAL.md) | Preventive | Instrumented | _ | _ |
 | Accessibility: axe on every story, `a11y.test: 'error'` by default | `packages/design-system/.storybook/preview.ts`, `ci.yml` | Preventive (via `build-and-test`) | Instrumented | _ | _ |
 | CODEOWNERS on enforcement and shared-vocabulary files | `.github/CODEOWNERS` | Tamper-evident | Instrumented | _ | _ |
 
@@ -33,5 +34,8 @@ instrumented** until [CANARY.md](CANARY.md) has results.
 - **`build-and-test` runs PR code**, so a PR can edit `ci.yml`. The a11y gate is
   therefore only as strong as CODEOWNERS on `.github/`. Moving axe into the
   trusted job would mean executing PR code there, which it's designed never to do.
+- **Figma fidelity covers only the scenes listed** in `governance/visual/scenes.json`,
+  in one state each, and tolerates the measured Chromium-vs-Figma text noise.
+  See [VISUAL.md](VISUAL.md).
 - **The impostor guard is name-based.** Test 3 in the canary drill is what
   proves GitHub doesn't accept an impostor run.

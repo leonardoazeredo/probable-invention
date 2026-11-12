@@ -25,4 +25,10 @@ message names the canonical replacement. Use it; don't work around the rule.
    `aria-labelledby`, `aria-describedby` and `htmlFor` freely. They're correct
    composition.
 
-Before pushing: `pnpm lint && pnpm typecheck && pnpm api:check && pnpm test:governance`.
+8. **Match the Figma frame.** Screens listed in `governance/visual/scenes.json`
+   are rendered and diffed against their Figma reference (`governance/visual`).
+   If it fails, fix the screen, using the `visual-diff` artifact. Never replace a
+   reference with a render of your own code; references come only from Figma
+   (`pnpm visual:fetch`) in a separate PR. See `governance/VISUAL.md`.
+
+Before pushing: `pnpm lint && pnpm typecheck && pnpm api:check && pnpm test:governance && pnpm visual`.
