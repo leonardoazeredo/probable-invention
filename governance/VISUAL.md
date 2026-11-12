@@ -67,6 +67,16 @@ is caught exactly.
   height (±1px), letter spacing, and the gaps between mapped children of
   auto-layout frames. Colours match within 2/255 per channel. Override with
   `structure.tolerance`.
+- **Token hints:** when the Figma property is bound to a variable, the
+  finding names it and the design-system token that carries it, for example
+  `→ Figma variable Space/800; use tokens.space.xxl`, or says no token maps to
+  it yet. Variable names come from
+  [`visual/figma-variables.json`](visual/figma-variables.json), built from
+  Simple Design System's published variables export with
+  `node governance/visual/build-figma-variables.mjs --sds <tokens.json>`.
+  Tokens are matched by the SDS variable named in each token's comment in
+  `packages/design-system/src/tokens/tokens.ts` (base branch copy, read as
+  text), so keep those comments accurate.
 - **Mode:** `"report"` lists mismatches in the summary and report without
   failing; `"enforce"` fails the scene on any mismatch. Start a new scene in
   `report`, then switch to `enforce` once the map is right.
